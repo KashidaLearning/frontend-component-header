@@ -136,3 +136,57 @@ $rounded-pill: 50rem  !default;
     border-radius: var(--pgn-size-rounded-pill, $rounded-pill);
   }
 }
+
+
+// custom styles
+
+@media (min-width: 1200px) {
+  .container-xl, .container-lg, .container-md, .container-sm, .container {
+      max-width: 1440px !important;
+  }
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+  max-width: 1440px !important;
+}
+
+.site-header-desktop .logo {
+  height: 73px !important;
+  padding: 10px !important;
+}
+
+.site-header-desktop .main-nav .nav-link , .main-menu .nav-link {
+  color:#FFFFFF !important;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700 !important;
+  line-height: 144%;
+  margin-left: 48px;
+}
+
+.site-header-desktop .main-nav .nav-link:hover, .main-menu .nav-link:hover {
+  background:none !important;
+  border: none;
+  text-decoration: none;
+}
+
+.container-fluid.null {
+  max-width: 1440px !important;
+}
+
+#root header .logo img {
+  height: 73px !important;
+}
+
+.menu-trigger.btn.btn-outline-primary {
+  border-radius: 46px !important;
+  background:#ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+}
+
+.menu-trigger.btn.btn-outline-primary:hover {
+ background: none !important;
+}
