@@ -25,14 +25,74 @@ const LearningHeader = ({
     />
   );
 
+  const mainMenu = [
+    {
+      type: 'item',
+      href: `${config.LMS_BASE_URL}`, // Homepage
+      content: intl.formatMessage(messages['header.links.home']),
+    },
+    {
+      type: 'item',
+      href: `${config.LMS_BASE_URL}/about`, // About page
+      content: intl.formatMessage(messages['header.links.about']),
+    },
+    {
+      type: 'item', 
+      href: `${config.LMS_BASE_URL}/courses`, // Courses page
+      content: intl.formatMessage(messages['header.links.courses']),
+    },
+    {
+      type: 'item', 
+      href: `${config.LMS_BASE_URL}/contact`, // Contact page
+      content: intl.formatMessage(messages['header.links.contact']),
+    },
+  ];
+
+
   return (
     <header className="learning-header">
       <a className="sr-only sr-only-focusable" href="#main-content">{intl.formatMessage(messages.skipNavLink)}</a>
       <div className="container-xl py-2 d-flex align-items-center">
         {headerLogo}
-        <div className="flex-grow-1 course-title-lockup d-flex" style={{ lineHeight: 1 }}>
-          <CourseInfoSlot courseOrg={courseOrg} courseNumber={courseNumber} courseTitle={courseTitle} />
+        
+        {/* Burger menu for mobile */}
+        <div className="burger-menu-icon d-block d-md-none" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? (
+            <span className="close-icon">X</span> // Show "X" when the menu is open
+          ) : (
+            <>
+              <span className="burger-bar"></span>
+              <span className="burger-bar"></span>
+              <span className="burger-bar"></span>
+            </>
+          )}
         </div>
+
+        <nav className="main-menu ml-3 d-none d-md-block">
+          <ul className="nav">
+            {mainMenu.map((item) => (
+              <li className="nav-item" key={item.href || item.content}>
+                <a className={`nav-link ${item.className || ''}`} href={item.href}>
+                  {item.content}
+                </a>
+            </li>
+          ))}
+          </ul>
+        </nav>  
+
+        {/* Mobile menu */}
+        <nav className={`mobile-menu d-md-none ${menuOpen ? 'open' : ''}`}>
+          <ul className="nav">
+            {mainMenu.map((item) => (
+              <li className="nav-item" key={item.href || item.content}>
+                <a className="nav-link" href={item.href}>
+                  {item.content}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        
         {showUserDropdown && authenticatedUser && (
         <>
           <LearningHelpSlot />
