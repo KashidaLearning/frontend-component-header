@@ -54,7 +54,7 @@ const LearningHeader = ({
       <a className="sr-only sr-only-focusable" href="#main-content">
         {intl.formatMessage(messages.skipNavLink)}
       </a>
-      <div className="container-xl py-2 d-flex align-items-center">
+      <div className="container-xl py-2 d-flex align-items-center header-container">
         {headerLogo}
 
         {/* Burger menu for mobile */}
@@ -103,7 +103,7 @@ const LearningHeader = ({
 
         {showUserDropdown && authenticatedUser && (
           <>
-            <LearningHelpSlot />
+          
             <AuthenticatedUserDropdown
               username={authenticatedUser.username}
             />

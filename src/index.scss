@@ -33,6 +33,8 @@ $rounded-pill: 50rem  !default;
 .learning-header {
   min-width: 0;
   background-color:#00B2AB !important;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 
   .course-title-lockup {
     min-width: 0;
@@ -194,4 +196,14 @@ $rounded-pill: 50rem  !default;
 #root header .logo {
   top: unset !important;
   height: unset !important;
+}
+
+.header-container {
+    justify-content: space-between;
+}
+
+.btn-outline-primary{
+  border: none !important;
+  border-radius: 0px !important;
+  background: white !important;
 }
