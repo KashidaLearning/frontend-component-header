@@ -5,6 +5,13 @@ $component-active-bg: #0A3055FF !default;
 $component-active-color: $white !default;
 $rounded-pill: 50rem  !default;
 
+@font-face {
+  font-family: "GE Dinar One";
+  src: url("./fonts/GE-Dinar-One-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 @import './Menu/menu.scss';
 @import './studio-header/StudioHeader.scss';
 
@@ -57,6 +64,14 @@ $rounded-pill: 50rem  !default;
   position: relative;
   z-index: 1000;
   background-color:#00B2AB !important;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.site-header-desktop .main-nav .expanded .nav-link, .site-header-desktop .main-nav .nav-link.active, .site-header-desktop .main-nav .nav-link:focus, .site-header-desktop .main-nav .nav-link:hover{
+  background-color: transparent !important;
+  color:#FFFFFF !important;
+  background: unset !important;
 }
 
 .site-header-mobile {
@@ -206,4 +221,17 @@ $rounded-pill: 50rem  !default;
   border: none !important;
   border-radius: 0px !important;
   background: white !important;
+}
+
+.header-container {
+  justify-content: flex-start !important;
+}
+
+.header-container > *:last-child {
+  margin-left: auto !important;
+}
+
+.site-header-desktop .main-nav .nav-link, .main-menu .nav-link
+{
+  font-family: "GE Dinar One", sans-serif !important;
 }

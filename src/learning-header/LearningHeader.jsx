@@ -30,22 +30,22 @@ const LearningHeader = ({
     {
       type: 'item',
       href: `${config.LMS_BASE_URL}`, // Homepage
-      content: intl.formatMessage(messages.home),
+      content: 'الصفحة الرئيسية',
     },
     {
       type: 'item',
       href: `${config.LMS_BASE_URL}/about`, // About page
-      content: intl.formatMessage(messages.about),
+      content: 'حول',
     },
     {
       type: 'item',
       href: `${config.LMS_BASE_URL}/courses`, // Courses page
-      content: intl.formatMessage(messages.courses),
+      content: 'البرامج',
     },
     {
       type: 'item',
       href: `${config.LMS_BASE_URL}/contact`, // Contact page
-      content: intl.formatMessage(messages.contact),
+      content: 'التواصل',
     },
   ];
 

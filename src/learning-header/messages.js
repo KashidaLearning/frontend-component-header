@@ -41,27 +41,6 @@ const messages = defineMessages({
     defaultMessage: 'User Options',
     description: 'The aria-label for the user options dropdown.',
   },
-
-  home: {
-    id: 'header.links.home',
-    defaultMessage: 'Home',
-    description: 'Main navigation link to the homepage.',
-  },
-  about: {
-    id: 'header.links.about',
-    defaultMessage: 'About',
-    description: 'Main navigation link to the about page.',
-  },
-  courses: {
-    id: 'header.links.courses',
-    defaultMessage: 'Courses',
-    description: 'Main navigation link to the courses page.',
-  },
-  contact: {
-    id: 'header.links.contact',
-    defaultMessage: 'Contact',
-    description: 'Main navigation link to the contact page.',
-  },
   
 });
 
