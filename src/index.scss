@@ -53,7 +53,7 @@ $rounded-pill: 50rem  !default;
 .site-header-desktop {
   position: relative;
   z-index: 1000;
-  background-color:#110D7C !important;
+  background-color:#416A9E !important;
 }
 
 .site-header-mobile {
@@ -151,8 +151,8 @@ $rounded-pill: 50rem  !default;
 }
 
 .site-header-desktop .logo {
-  height: 73px !important;
-  padding: 10px !important;
+  height: auto !important;
+  padding: unset !important;
 }
 
 .site-header-desktop .main-nav .nav-link , .main-menu .nav-link {
@@ -162,7 +162,7 @@ $rounded-pill: 50rem  !default;
   font-style: normal;
   font-weight: 700 !important;
   line-height: 144%;
-  margin-left: 48px;
+  margin-left: 40px;
 }
 
 .site-header-desktop .main-nav .nav-link:hover, .main-menu .nav-link:hover {
@@ -176,7 +176,21 @@ $rounded-pill: 50rem  !default;
 }
 
 #root header .logo img {
-  height: 73px !important;
+  width: 115px !important;
+  height: auto !important;
+}
+
+[dir="rtl"] .nav {
+  margin-right: 40px !important;
+}
+
+
+.align-items-center {
+  padding: 10px;
+}
+
+[dir="rtl"] .site-header-desktop .main-nav .nav-link {
+  margin-right: 40px !important;
 }
 
 .menu-trigger.btn.btn-outline-primary {
@@ -187,6 +201,7 @@ $rounded-pill: 50rem  !default;
   font-size: 16px !important;
 }
 
-.menu-trigger.btn.btn-outline-primary:hover {
- background: none !important;
+
+[dir="rtl"] .mr-2 {
+display: none !important;
 }

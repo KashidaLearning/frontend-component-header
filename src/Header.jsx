@@ -52,12 +52,27 @@ const Header = ({
   const { authenticatedUser, config } = useContext(AppContext);
 
   const defaultMainMenu = [
-    {
-      type: 'item',
-      href: `${config.LMS_BASE_URL}/dashboard`,
-      content: intl.formatMessage(messages['header.links.courses']),
-    },
-  ];
+  {
+    type: 'item',
+    href: `${config.LMS_BASE_URL}/future-skills`,
+    content: 'مهارات المستقبل',
+  },
+  {
+    type: 'item',
+    href: `${config.LMS_BASE_URL}/about`,
+    content: 'حول المؤسسة',
+  },
+  {
+    type: 'item',
+    href: `${config.LMS_BASE_URL}/blog`,
+    content: 'المدوّنة',
+  },
+  {
+    type: 'item',
+    href: `${config.LMS_BASE_URL}/references`,
+    content: 'المراجع',
+  },
+];
   const defaultUserMenu = authenticatedUser === null ? [] : [{
     heading: '',
     items: [
@@ -76,12 +91,6 @@ const Header = ({
         href: config.ACCOUNT_SETTINGS_URL,
         content: intl.formatMessage(messages['header.user.menu.account.settings']),
       },
-      // Users should only see Order History if have a ORDER_HISTORY_URL define in the environment.
-      ...(config.ORDER_HISTORY_URL ? [{
-        type: 'item',
-        href: config.ORDER_HISTORY_URL,
-        content: intl.formatMessage(messages['header.user.menu.order.history']),
-      }] : []),
       {
         type: 'item',
         href: config.LOGOUT_URL,
