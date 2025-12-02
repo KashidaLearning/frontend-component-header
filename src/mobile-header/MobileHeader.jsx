@@ -25,21 +25,41 @@ class MobileHeader extends React.Component {
     super(props);
   }
 
-  renderMainMenu() {
-    const { mainMenu, secondaryMenu } = this.props;
-    return <MobileMainMenuSlot menu={[...mainMenu, ...secondaryMenu]} />;
+  // Combined menu: main + secondary + user/logged-out
+  renderCombinedMenu() {
+    const {
+      mainMenu,
+      secondaryMenu,
+      userMenu,
+      loggedOutItems,
+      loggedIn,
+    } = this.props;
+
+    const combinedMain = [...mainMenu, ...secondaryMenu];
+
+    return (
+      <>
+        {/* Main + secondary items */}
+        {combinedMain.length > 0 && (
+          <MobileMainMenuSlot menu={combinedMain} />
+        )}
+
+        {/* Divider between main and user section (optional) */}
+        {(combinedMain.length > 0 && (userMenu.length > 0 || loggedOutItems.length > 0)) && (
+          <hr className="my-2" />
+        )}
+
+        {/* User section (profile links OR login/register) */}
+        {loggedIn ? (
+          <MobileUserMenuSlot menu={userMenu} />
+        ) : (
+          <MobileLoggedOutItemsSlot items={loggedOutItems} />
+        )}
+      </>
+    );
   }
 
-  renderUserMenuItems() {
-    const { userMenu } = this.props;
-    return <MobileUserMenuSlot menu={userMenu} />;
-  }
-
-  renderLoggedOutItems() {
-    const { loggedOutItems } = this.props;
-    return <MobileLoggedOutItemsSlot items={loggedOutItems} />;
-  }
-
+  // Kept in case you still want the avatar toggle somewhere else later
   renderUserMenuToggle() {
     const { avatar, username } = this.props;
     return <MobileUserMenuToggleSlot avatar={avatar} label={username} />;
@@ -57,19 +77,28 @@ class MobileHeader extends React.Component {
       userMenu,
       loggedOutItems,
     } = this.props;
+
     const logoProps = { src: logo, alt: logoAltText, href: logoDestination };
     const stickyClassName = stickyOnMobile ? 'sticky-top' : '';
     const logoClasses = getConfig().AUTHN_MINIMAL_HEADER ? 'justify-content-left pl-3' : 'justify-content-center';
+
+    const hasAnyMenuItems =
+      mainMenu.length > 0 ||
+      userMenu.length > 0 ||
+      loggedOutItems.length > 0;
 
     return (
       <header
         aria-label={intl.formatMessage(messages['header.label.main.header'])}
         className={`site-header-mobile d-flex justify-content-between align-items-center shadow ${stickyClassName}`}
       >
-        <a className="nav-skip sr-only sr-only-focusable" href="#main">{intl.formatMessage(messages['header.label.skip.nav'])}</a>
-        {mainMenu.length > 0 ? (
-          <div className="w-100 d-flex justify-content-start">
+        <a className="nav-skip sr-only sr-only-focusable" href="#main">
+          {intl.formatMessage(messages['header.label.skip.nav'])}
+        </a>
 
+        {/* SINGLE combined menu on the left */}
+        {hasAnyMenuItems && (
+          <div className="w-100 d-flex justify-content-start">
             <Menu className="position-static">
               <MenuTrigger
                 tag="button"
@@ -77,38 +106,28 @@ class MobileHeader extends React.Component {
                 aria-label={intl.formatMessage(messages['header.label.main.menu'])}
                 title={intl.formatMessage(messages['header.label.main.menu'])}
               >
-                <MenuIcon role="img" aria-hidden focusable="false" style={{ width: '1.5rem', height: '1.5rem' }} />
+                <MenuIcon
+                  role="img"
+                  aria-hidden
+                  focusable="false"
+                  style={{ width: '1.5rem', height: '1.5rem' }}
+                />
               </MenuTrigger>
               <MenuContent
                 tag="nav"
                 aria-label={intl.formatMessage(messages['header.label.main.nav'])}
                 className="nav flex-column pin-left pin-right border-top shadow py-2"
               >
-                {this.renderMainMenu()}
+                {this.renderCombinedMenu()}
               </MenuContent>
             </Menu>
           </div>
-        ) : null}
-        <div className={`w-100 d-flex ${logoClasses}`}>
+        )}
+
+        {/* Logo in the center */}
+        <div className={`w-100 d-flex justify-content-end`}>
           <LogoSlot {...logoProps} itemType="http://schema.org/Organization" />
         </div>
-        {userMenu.length > 0 || loggedOutItems.length > 0 ? (
-          <div className="w-100 d-flex justify-content-end align-items-center">
-            <Menu tag="nav" aria-label={intl.formatMessage(messages['header.label.secondary.nav'])} className="position-static">
-              <MenuTrigger
-                tag="button"
-                className="icon-button"
-                aria-label={intl.formatMessage(messages['header.label.account.menu'])}
-                title={intl.formatMessage(messages['header.label.account.menu'])}
-              >
-                {this.renderUserMenuToggle()}
-              </MenuTrigger>
-              <MenuContent tag="ul" className="nav flex-column pin-left pin-right border-top shadow py-2">
-                {loggedIn ? this.renderUserMenuItems() : this.renderLoggedOutItems()}
-              </MenuContent>
-            </Menu>
-          </div>
-        ) : null}
       </header>
     );
   }
@@ -157,7 +176,6 @@ MobileHeader.defaultProps = {
   username: null,
   loggedIn: false,
   stickyOnMobile: true,
-
 };
 
 export default injectIntl(MobileHeader);
