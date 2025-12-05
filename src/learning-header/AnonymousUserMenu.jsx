@@ -20,7 +20,9 @@ const AnonymousUserMenu = ({ intl }) => {
     },
   ];
 
-  return <LearningLoggedOutItemsSlot buttonsInfo={buttonsInfo} />;
+  // Hide register & sign-in buttons by passing an empty array.
+  // Previously: return <LearningLoggedOutItemsSlot buttonsInfo={buttonsInfo} />;
+  return <LearningLoggedOutItemsSlot buttonsInfo={[]} />;
 };
 
 AnonymousUserMenu.propTypes = {
