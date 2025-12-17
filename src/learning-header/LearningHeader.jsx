@@ -89,7 +89,7 @@ const LearningHeader = ({
         </nav>
 
         {/* Mobile menu */}
-        <nav className={`mobile-menu d-md-none ${menuOpen ? 'open' : ''}`}>
+        <nav className={`mobile-menu d-md ${menuOpen ? 'open' : ''}`}>
           <ul className="nav">
             {mainMenu.map((item) => (
               <li className="nav-item" key={item.href || item.content}>

@@ -196,15 +196,15 @@ $rounded-pill: 50rem  !default;
 }
 
 .menu-trigger.btn.btn-outline-primary {
-  border-radius: 46px !important;
   background:#ffffff !important;
   color: #000000 !important;
   font-weight: 700 !important;
   font-size: 16px !important;
+  padding: 9px 16px !important;
 }
 
 .menu-trigger.btn.btn-outline-primary:hover {
- background: none !important;
+ background:#ffffff !important;
 }
 
 
@@ -235,3 +235,22 @@ $rounded-pill: 50rem  !default;
 {
   font-family: "GE Dinar One", sans-serif !important;
 }
+
+
+.user-dropdown .dropdown-toggle svg {
+  color: #6c757d !important;
+}
+
+.mobile-menu {
+  display: none !important;
+}
+
+.dropdown-toggle {
+  display: flex !important;
+  gap: 5px;
+}
+
+.dropdown-menu {
+  min-width: unset !important;
+}
+

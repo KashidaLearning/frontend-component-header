@@ -7,7 +7,7 @@ const LearningUserMenuToggle = ({
   icon,
 }) => (
   <>
-    <FontAwesomeIcon icon={icon} className="d-md-none" size="lg" />
+    <FontAwesomeIcon icon={icon} className="d-md" size="lg" />
     <span data-hj-suppress className="d-none d-md-inline">
       {label}
     </span>
