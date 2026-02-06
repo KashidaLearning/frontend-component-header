@@ -64,6 +64,11 @@ const Header = ({
   },
   {
     type: 'item',
+    href: `https://sbmf-website.kashida-learning.co/%d8%a7%d9%84%d8%b1%d8%a6%d9%8a%d8%b3%d9%8a%d8%a9/`,
+    content: 'المدونة',
+  },
+  {
+    type: 'item',
     href: `https://sbmf-website.kashida-learning.co/%d8%aa%d9%88%d8%a7%d8%b5%d9%84-%d9%85%d8%b9%d9%86%d8%a7-2/`,
     content: 'تواصل معنا',
   },
