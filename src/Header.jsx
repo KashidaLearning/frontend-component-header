@@ -54,24 +54,20 @@ const Header = ({
   const defaultMainMenu = [
   {
     type: 'item',
-    href: `${config.LMS_BASE_URL}/future-skills`,
-    content: 'مهارات المستقبل',
+    href: `${config.LMS_BASE_URL}/courses`,
+    content: 'المغامرات',
   },
   {
     type: 'item',
-    href: `${config.LMS_BASE_URL}/about`,
+    href: `https://sbmf-website.kashida-learning.co/%d8%b9%d9%86-%d8%a7%d9%84%d8%a8%d8%b1%d9%86%d8%a7%d9%85%d8%ac-2/`,
     content: 'حول المؤسسة',
   },
   {
     type: 'item',
-    href: `${config.LMS_BASE_URL}/blog`,
-    content: 'المدوّنة',
+    href: `https://sbmf-website.kashida-learning.co/%d8%aa%d9%88%d8%a7%d8%b5%d9%84-%d9%85%d8%b9%d9%86%d8%a7-2/`,
+    content: 'تواصل معنا',
   },
-  {
-    type: 'item',
-    href: `${config.LMS_BASE_URL}/references`,
-    content: 'المراجع',
-  },
+
 ];
   const defaultUserMenu = authenticatedUser === null ? [] : [{
     heading: '',
