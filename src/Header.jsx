@@ -65,7 +65,7 @@ const Header = ({
   {
     type: 'item',
     href: `https://sbmf-website.kashida-learning.co/%d8%a7%d9%84%d8%b1%d8%a6%d9%8a%d8%b3%d9%8a%d8%a9/`,
-    content: 'المدونة',
+    content: 'المدوّنة',
   },
   {
     type: 'item',
