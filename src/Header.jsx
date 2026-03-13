@@ -52,27 +52,17 @@ const Header = ({
   const { authenticatedUser, config } = useContext(AppContext);
 
   const defaultMainMenu = [
+
+  {
+    type: 'item',
+    href: `${config.LMS_BASE_URL}/about`,
+    content: 'ABOUT',
+  },
   {
     type: 'item',
     href: `${config.LMS_BASE_URL}/courses`,
-    content: 'المغامرات',
+    content: 'COURSES',
   },
-  {
-    type: 'item',
-    href: `https://f-skills.com/%d8%b9%d9%86-%d8%a7%d9%84%d8%a8%d8%b1%d9%86%d8%a7%d9%85%d8%ac-2/`,
-    content: 'حول المؤسسة',
-  },
-  {
-    type: 'item',
-    href: `https://f-skills.com/%d8%a7%d9%84%d8%b1%d8%a6%d9%8a%d8%b3%d9%8a%d8%a9/`,
-    content: 'المدوّنة',
-  },
-  {
-    type: 'item',
-    href: `https://f-skills.com/%d8%aa%d9%88%d8%a7%d8%b5%d9%84-%d9%85%d8%b9%d9%86%d8%a7-2/`,
-    content: 'تواصل معنا',
-  },
-
 ];
   const defaultUserMenu = authenticatedUser === null ? [] : [{
     heading: '',

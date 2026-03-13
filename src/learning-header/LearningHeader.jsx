@@ -7,60 +7,71 @@ import { AppContext } from '@edx/frontend-platform/react';
 import AnonymousUserMenu from './AnonymousUserMenu';
 import AuthenticatedUserDropdown from './AuthenticatedUserDropdown';
 import LogoSlot from '../plugin-slots/LogoSlot';
-import CourseInfoSlot from '../plugin-slots/CourseInfoSlot';
-import { courseInfoDataShape } from './LearningHeaderCourseInfo';
+
 import messages from './messages';
-import LearningHelpSlot from '../plugin-slots/LearningHelpSlot';
 
-const LearningHeader = ({
-  courseOrg, courseNumber, courseTitle, intl, showUserDropdown,
-}) => {
+const LearningHeader = ({ intl, showUserDropdown }) => {
   const { authenticatedUser } = useContext(AppContext);
-
-  const headerLogo = (
-    <LogoSlot
-      href={`${getConfig().LMS_BASE_URL}/dashboard`}
-      src={getConfig().LOGO_URL}
-      alt={getConfig().SITE_NAME}
-    />
-  );
+  const config = getConfig();
 
   return (
     <header className="learning-header">
-      <a className="sr-only sr-only-focusable" href="#main-content">{intl.formatMessage(messages.skipNavLink)}</a>
+
+      <a className="sr-only sr-only-focusable" href="#main-content">
+        {intl.formatMessage(messages.skipNavLink)}
+      </a>
+
       <div className="container-xl py-2 d-flex align-items-center">
-        {headerLogo}
-        <div className="flex-grow-1 course-title-lockup d-flex" style={{ lineHeight: 1 }}>
-          <CourseInfoSlot courseOrg={courseOrg} courseNumber={courseNumber} courseTitle={courseTitle} />
-        </div>
+
+        {/* Logo */}
+        <LogoSlot
+          href={`${config.LMS_BASE_URL}/dashboard`}
+          src={config.LOGO_URL}
+          alt={config.SITE_NAME}
+        />
+
+        {/* Main Navigation */}
+        <nav className="main-nav d-flex ml-4">
+          <a
+            className="nav-link"
+            href={`${config.LMS_BASE_URL}/about`}
+          >
+            ABOUT
+          </a>
+
+          <a
+            className="nav-link"
+            href={`${config.LMS_BASE_URL}/courses`}
+          >
+            COURSES
+          </a>
+        </nav>
+
+        {/* Push user menu to right */}
+        <div className="flex-grow-1" />
+
+        {/* User menu */}
         {showUserDropdown && authenticatedUser && (
-        <>
-          <LearningHelpSlot />
           <AuthenticatedUserDropdown
             username={authenticatedUser.username}
           />
-        </>
         )}
+
         {showUserDropdown && !authenticatedUser && (
-        <AnonymousUserMenu />
+          <AnonymousUserMenu />
         )}
+
       </div>
     </header>
   );
 };
 
 LearningHeader.propTypes = {
-  courseOrg: courseInfoDataShape.courseOrg,
-  courseNumber: courseInfoDataShape.courseNumber,
-  courseTitle: courseInfoDataShape.courseTitle,
   intl: intlShape.isRequired,
   showUserDropdown: PropTypes.bool,
 };
 
 LearningHeader.defaultProps = {
-  courseOrg: null,
-  courseNumber: null,
-  courseTitle: null,
   showUserDropdown: true,
 };
 
