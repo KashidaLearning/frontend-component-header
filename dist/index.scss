@@ -202,10 +202,9 @@ header * {
   max-width: 1440px !important;
 }
 
-.align-items-center {
-  padding: 16px 0;
+.site-header-desktop, .site-header-mobile {
+  padding: 10px 0 !important;
 }
-
 
 .menu-trigger.btn.btn-outline-primary {
   background:#FFF9F1 !important;
@@ -294,7 +293,6 @@ display: none !important;
     align-items: center;
     padding-top: 16px;
     padding-bottom: 16px;
-    min-height: 138px;
   }
 
   .logo {
