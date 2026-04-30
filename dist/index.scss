@@ -364,7 +364,8 @@ display: none !important;
   }
 }
 
-.main-menu .nav-link.active, .main-menu .nav-link:focus, .main-menu .nav-link:hover, .site-header-desktop .main-nav .nav-link.active, .site-header-desktop .main-nav .nav-link:focus, .site-header-desktop .main-nav .nav-link:hover {
+.main-menu .nav-link:hover,
+.site-header-desktop .main-nav .nav-link:hover {
     text-decoration: underline;
     color: #44C8CC !important;
 }
