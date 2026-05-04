@@ -406,19 +406,46 @@ nav.nav.secondary-menu-container.align-items-center.ml-auto {
 .main-menu .nav-link.active, .main-menu .nav-link:focus, .site-header-desktop .main-nav .nav-link.active, .site-header-desktop .main-nav .nav-link:focus {
     text-decoration: none !important;
 }
+.main-menu .nav-link:hover,
+.site-header-desktop .main-nav .nav-link:hover {
+    text-decoration: underline !important;
+}
 //Font overrides
-.menu-trigger::before {
-    content: "";
-    width: 30px;
-    height: 30px;
-    background-image: url(https://karaneef.kashida-learning.co/asset-v1:UniversityX+CS101+P1_2026+type@asset+block@Frame.png);
-    background-size: cover;
-    background-position: center;
-    border-radius: 6px;
-    margin-inline-end: 10px;
-    display: inline-block;
+
+.site-header-desktop .secondary-menu-container .menu-trigger {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  height: 42px !important;
+  padding: 0 12px !important;
+  line-height: 1 !important;
+  position: relative !important;
 }
 
+.site-header-desktop .secondary-menu-container .menu-trigger::before {
+  content: "" !important;
+  flex: 0 0 30px !important;
+  width: 30px !important;
+  height: 30px !important;
+  display: inline-block !important;
+  background-image: url(https://karaneef.kashida-learning.co/asset-v1:UniversityX+CS101+P1_2026+type@asset+block@Frame.png);
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 6px !important;
+  margin: 0 8px 0 0 !important;
+  position: static !important;
+  transform: none !important;
+}
+
+.site-header-desktop .secondary-menu-container .menu-trigger[aria-expanded="true"]::before,
+.site-header-desktop .secondary-menu-container .menu-trigger[aria-expanded="false"]::before {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+}
 @font-face {
   font-family: 'Manrope';
   src: url('./assets/fonts/Manrope-VariableFont_wght.ttf') format('truetype');
