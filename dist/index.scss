@@ -397,8 +397,27 @@ button.menu-trigger::after {
 .align-items-center {
     padding: 14px 0;
 }
-
+nav.nav.secondary-menu-container.align-items-center.ml-auto {
+    border: none !important;
+}
+.menu-content.mb-0.dropdown-menu.show.dropdown-menu-right.pin-right.shadow.py-2.menu-dropdown-enter-done {
+    background-color: #FCF0DE !important;
+}
+.main-menu .nav-link.active, .main-menu .nav-link:focus, .site-header-desktop .main-nav .nav-link.active, .site-header-desktop .main-nav .nav-link:focus {
+    text-decoration: none !important;
+}
 //Font overrides
+.menu-trigger::before {
+    content: "";
+    width: 30px;
+    height: 30px;
+    background-image: url(https://karaneef.kashida-learning.co/asset-v1:UniversityX+CS101+P1_2026+type@asset+block@Frame.png);
+    background-size: cover;
+    background-position: center;
+    border-radius: 6px;
+    margin-inline-end: 10px;
+    display: inline-block;
+}
 
 @font-face {
   font-family: 'Manrope';
