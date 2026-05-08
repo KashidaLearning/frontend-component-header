@@ -101,7 +101,7 @@ var DesktopHeader = /*#__PURE__*/function (_React$Component) {
       var logoProps = {
         src: logo,
         alt: logoAltText,
-        href: logoDestination
+         href: 'https://karaneef.kashida-learning.co/'
       };
       var logoClasses = getConfig().AUTHN_MINIMAL_HEADER ? 'mw-100' : null;
       return /*#__PURE__*/React.createElement("header", {
