@@ -446,6 +446,9 @@ nav.nav.secondary-menu-container.align-items-center.ml-auto {
   left: auto !important;
   transform: none !important;
 }
+.course-list-container {
+    min-height: 1440px;
+}
 @font-face {
   font-family: 'Manrope';
   src: url('./assets/fonts/Manrope-VariableFont_wght.ttf') format('truetype');
