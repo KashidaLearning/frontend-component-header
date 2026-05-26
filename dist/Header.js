@@ -81,7 +81,7 @@ var Header = function Header(_ref) {
   var props = {
     logo: config.LOGO_URL,
     logoAltText: config.SITE_NAME,
-    logoDestination: "".concat(config.LMS_BASE_URL, "/dashboard"),
+    logoDestination: config.LMS_BASE_URL,
     loggedIn: authenticatedUser !== null,
     username: authenticatedUser !== null ? authenticatedUser.username : null,
     avatar: authenticatedUser !== null ? authenticatedUser.avatar : null,

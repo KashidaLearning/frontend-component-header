@@ -21,7 +21,7 @@ var LearningHeader = function LearningHeader(_ref) {
   }, intl.formatMessage(messages.skipNavLink)), /*#__PURE__*/React.createElement("div", {
     className: "container-xl py-2 d-flex align-items-center"
   }, /*#__PURE__*/React.createElement(LogoSlot, {
-    href: "".concat(config.LMS_BASE_URL, "/dashboard"),
+    href: config.LMS_BASE_URL,
     src: config.LOGO_URL,
     alt: config.SITE_NAME
   }), /*#__PURE__*/React.createElement("nav", {
