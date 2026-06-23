@@ -40,7 +40,7 @@ var LearningHeader = function LearningHeader(_ref) {
     courseNumber: courseNumber,
     courseTitle: courseTitle
   })), showUserDropdown && authenticatedUser && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(LearningHelpSlot, null), /*#__PURE__*/React.createElement(AuthenticatedUserDropdown, {
-    username: "HEADER TEST"
+    username: authenticatedUser.name || authenticatedUser.profileName || authenticatedUser.fullName || authenticatedUser.username
   })), showUserDropdown && !authenticatedUser && /*#__PURE__*/React.createElement(AnonymousUserMenu, null)));
 };
 LearningHeader.propTypes = {
