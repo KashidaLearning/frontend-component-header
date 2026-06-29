@@ -44,7 +44,7 @@ var Header = function Header(_ref) {
   }, {
     type: 'item',
     href: "https://f-skills.com/%D8%B9%D9%86-%D8%A7%D9%84%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC-2/",
-    content: 'حول المؤسسة'
+    content: 'حول البرنامج'
   }, {
     type: 'item',
     href: "https://f-skills.com/%d8%a7%d9%84%d9%85%d8%af%d9%88%d9%91%d9%86%d8%a9/",
