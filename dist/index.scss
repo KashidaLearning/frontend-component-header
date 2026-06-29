@@ -219,9 +219,17 @@ header * {
 
 
 [dir="rtl"] .mr-2 {
-display: none !important;
+  margin-right: 0 !important;
+  margin-left: calc(var(--pgn-spacing-spacer-base) * .5) !important;
 }
 
+[dir="rtl"] .account-section .pgn__stateful-btn.mr-2.btn-primary {
+  height: 47px;
+  min-width: 61px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
 
 /* MOBILE MENU CUSTOM DESIGN */
 .site-header-mobile .menu-content {
