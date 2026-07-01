@@ -51,17 +51,21 @@ const Header = ({
 }) => {
   const { authenticatedUser, config } = useContext(AppContext);
 
-  const defaultMainMenu = [
-
+ const defaultMainMenu = [
   {
     type: 'item',
     href: `${config.LMS_BASE_URL}/about`,
-    content: 'ABOUT',
+    content: intl.formatMessage(messages['header.links.about']),
   },
   {
     type: 'item',
     href: `${config.LMS_BASE_URL}/courses`,
-    content: 'COURSES',
+    content: intl.formatMessage(messages['header.links.courses']),
+  },
+  {
+    type: 'item',
+    href: `${config.LMS_BASE_URL}/#programs`,
+    content: intl.formatMessage(messages['header.links.programs']),
   },
 ];
   const defaultUserMenu = authenticatedUser === null ? [] : [{

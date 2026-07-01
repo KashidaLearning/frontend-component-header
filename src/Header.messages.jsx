@@ -66,6 +66,17 @@ const messages = defineMessages({
     defaultMessage: 'Maintenance',
     description: 'Link to the Studio Maintenance',
   },
+
+  'header.links.about': {
+  id: 'header.links.about',
+  defaultMessage: 'About',
+  description: 'Link text for the About page in the main header menu',
+},
+'header.links.courses': {
+  id: 'header.links.courses',
+  defaultMessage: 'Courses',
+  description: 'Link text for the Courses page in the main header menu',
+},
   'header.label.account.nav': {
     id: 'header.label.account.nav',
     defaultMessage: 'Account',
