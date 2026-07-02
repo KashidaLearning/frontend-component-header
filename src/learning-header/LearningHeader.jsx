@@ -36,21 +36,21 @@ const LearningHeader = ({ intl, showUserDropdown }) => {
             className="nav-link"
             href={`${config.LMS_BASE_URL}/about`}
           >
-            ABOUT
+              {intl.formatMessage(messages.about)}
           </a>
 
           <a
             className="nav-link"
             href={`${config.LMS_BASE_URL}/courses`}
           >
-            COURSES
+            {intl.formatMessage(messages.courses)}
           </a>
 
               <a
             className="nav-link"
             href={`${config.LMS_BASE_URL}/#programs`}
           >
-            PROGRAMS
+            {intl.formatMessage(messages.programs)}
           </a>
         </nav>
 
