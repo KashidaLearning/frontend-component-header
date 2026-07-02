@@ -45,6 +45,13 @@ const LearningHeader = ({ intl, showUserDropdown }) => {
           >
             COURSES
           </a>
+
+              <a
+            className="nav-link"
+            href={`${config.LMS_BASE_URL}/#programs`}
+          >
+            PROGRAMS
+          </a>
         </nav>
 
         {/* Push user menu to right */}

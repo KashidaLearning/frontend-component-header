@@ -41,6 +41,21 @@ const messages = defineMessages({
     defaultMessage: 'User Options',
     description: 'The aria-label for the user options dropdown.',
   },
+  about: {
+    id: 'header.nav.about.label',
+    defaultMessage: 'About',
+    description: 'The text for the main nav About link.',
+  },
+  courses: {
+    id: 'header.nav.courses.label',
+    defaultMessage: 'Courses',
+    description: 'The text for the main nav Courses link.',
+  },
+  programs: {
+    id: 'header.nav.programs.label',
+    defaultMessage: 'Programs',
+    description: 'The text for the main nav Programs link.',
+  },
 });
 
 export default messages;
