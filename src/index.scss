@@ -180,7 +180,7 @@ header * {
 
 .site-header-desktop .main-nav .nav-link , .main-menu .nav-link {
   color: #FCF0DE !important;
-  font-family: 'Manrope' !important;
+  font-family: 'Manrope';
   text-align: center;
   font-size: 18px;
   font-style: normal;
@@ -327,7 +327,7 @@ display: none !important;
 
   .main-nav .nav-link {
     color: #FCF0DE !important;
-    font-family: 'Manrope', sans-serif !important;
+    font-family: 'Manrope', sans-serif;
     text-align: center;
     font-size: 18px;
     font-style: normal;
@@ -385,14 +385,14 @@ display: none !important;
 
 
 html, body {
-  font-family: 'Manrope' !important;
+  font-family: 'Manrope';
 }
 h1, h2, h3, h4, h5, h6, span, a, p, li {
-  font-family: 'Manrope'!important;
+  font-family: 'Manrope';
 }
 button,
 input,
 textarea,
 select {
-  font-family: inherit !important;
+  font-family: inherit;
 }
