@@ -7,19 +7,26 @@ $rounded-pill: 50rem  !default;
 
 @import './Menu/menu.scss';
 @import './studio-header/StudioHeader.scss';
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&display=swap");
 
+[dir="rtl"],
+[lang="ar"] {
+   h1, h2, h3, h4, h5, h6, span, a, p, li {
+        font-family: 'Noto Sans Arabic' !important;
+    }
+}
 
 /* Apply Arabic font to ALL text inside the header */
 .site-header-mobile,
 .site-header-desktop,
 .header-arabic {
-  font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+  font-family: 'Noto Sans Arabic', sans-serif !important;
 }
 
 
 header,
 header * {
-  font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+  font-family: 'Noto Sans Arabic', sans-serif !important;
 }
 
 
