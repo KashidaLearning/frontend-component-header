@@ -15,6 +15,7 @@ import DesktopHeaderSlot from './plugin-slots/DesktopHeaderSlot';
 import MobileHeaderSlot from './plugin-slots/MobileHeaderSlot';
 
 import messages from './Header.messages';
+import RowadHeader from './rowad/RowadHeader';
 
 ensureConfig([
   'LMS_BASE_URL',
@@ -52,11 +53,92 @@ const Header = ({
   const { authenticatedUser, config } = useContext(AppContext);
   const intl = useIntl();
 
+  const rowadWebsiteUrl = 'https://d1p65zue2xzvrm.cloudfront.net';
+
+  const submenuLink = (href, label) => (
+    <a
+      className="rowad-submenu-link"
+      href={href}
+      key={label}
+    >
+      {label}
+    </a>
+  );
+
   const defaultMainMenu = [
+    {
+      type: 'menu',
+      href: `${rowadWebsiteUrl}/explore.html`,
+      content: 'Explore',
+      submenuContent: (
+        <div className="rowad-mega-menu">
+          <div className="rowad-menu-column">
+            <h3>Content</h3>
+
+            {submenuLink(`${rowadWebsiteUrl}/courses.html`, 'Courses')}
+            {submenuLink(`${rowadWebsiteUrl}/podcasts.html`, 'Podcasts')}
+            {submenuLink(`${rowadWebsiteUrl}/blogs.html`, 'Blogs')}
+          </div>
+
+          <div className="rowad-menu-column">
+            <h3>Programs & Support</h3>
+
+            {submenuLink(`${rowadWebsiteUrl}/mentorship.html`, 'Mentorship Program')}
+            {submenuLink(`${rowadWebsiteUrl}/consultation.html`, 'Consultation Support')}
+            {submenuLink(`${rowadWebsiteUrl}/partnerships.html`, 'Partnerships')}
+            {submenuLink(`${rowadWebsiteUrl}/initiatives.html`, 'Initiatives')}
+            {submenuLink(`${rowadWebsiteUrl}/book-club.html`, 'Book Club')}
+          </div>
+
+          <div className="rowad-menu-column">
+            <h3>Directories</h3>
+
+            {submenuLink(`${rowadWebsiteUrl}/glossary.html`, 'Glossary')}
+            {submenuLink(`${rowadWebsiteUrl}/tools-directory.html`, 'Tools Directory')}
+            {submenuLink(`${rowadWebsiteUrl}/funding-directory.html`, 'Funding Directory')}
+            {submenuLink(`${rowadWebsiteUrl}/experts-directory.html`, 'Experts Directory')}
+            {submenuLink(`${rowadWebsiteUrl}/accelerators.html`, 'Accelerators')}
+            {submenuLink(`${rowadWebsiteUrl}/events.html`, 'Events Calendar')}
+          </div>
+
+          <div className="rowad-menu-column">
+            <h3>Join Rowad</h3>
+
+            {submenuLink(`${rowadWebsiteUrl}/start-partnership.html`, 'Start Partnership')}
+            {submenuLink(`${rowadWebsiteUrl}/become-a-mentor.html`, 'Become a Mentor')}
+            {submenuLink(`${rowadWebsiteUrl}/become-an-ambassador.html`, 'Become an Ambassador')}
+            {submenuLink(`${rowadWebsiteUrl}/special-requests.html`, 'Special Requests')}
+            {submenuLink(`${rowadWebsiteUrl}/library.html`, 'Library')}
+          </div>
+        </div>
+      ),
+    },
+    {
+      type: 'menu',
+      href: `${rowadWebsiteUrl}/starting.html`,
+      content: 'For Who',
+      submenuContent: (
+        <div className="rowad-simple-menu">
+          {submenuLink(`${rowadWebsiteUrl}/starting.html`, 'Starting a Business')}
+          {submenuLink(`${rowadWebsiteUrl}/running.html`, 'Running a Business')}
+          {submenuLink(`${rowadWebsiteUrl}/growing.html`, 'Growing a Business')}
+        </div>
+      ),
+    },
+    {
+      type: 'item',
+      href: `${rowadWebsiteUrl}/journey-guide.html`,
+      content: 'Journey Guide',
+    },
+    {
+      type: 'item',
+      href: `${rowadWebsiteUrl}/about.html`,
+      content: 'About',
+    },
     {
       type: 'item',
       href: `${config.LMS_BASE_URL}/dashboard`,
-      content: intl.formatMessage(messages['header.links.courses']),
+      content: 'Rowad Courses',
     },
   ];
   const defaultUserMenu = authenticatedUser === null ? [] : [{
@@ -111,7 +193,7 @@ const Header = ({
   const props = {
     logo: config.LOGO_URL,
     logoAltText: config.SITE_NAME,
-    logoDestination: `${config.LMS_BASE_URL}/dashboard`,
+    logoDestination: `${rowadWebsiteUrl}/index.html`,
     loggedIn: authenticatedUser !== null,
     username: authenticatedUser !== null ? authenticatedUser.username : null,
     avatar: authenticatedUser !== null ? authenticatedUser.avatar : null,
@@ -121,15 +203,30 @@ const Header = ({
     loggedOutItems: getConfig().AUTHN_MINIMAL_HEADER ? [] : loggedOutItems,
   };
 
+  // Keep the public component API backwards compatible for applications that
+  // deliberately provide a custom main or secondary navigation. The standard
+  // shared header path uses the Rowad implementation below.
+  if (mainMenuItems !== null || secondaryMenuItems !== null) {
+    return (
+      <>
+        <Responsive maxWidth={769}>
+          <MobileHeaderSlot props={props} />
+        </Responsive>
+        <Responsive minWidth={769}>
+          <DesktopHeaderSlot props={props} />
+        </Responsive>
+      </>
+    );
+  }
+
   return (
-    <>
-      <Responsive maxWidth={769}>
-        <MobileHeaderSlot props={props} />
-      </Responsive>
-      <Responsive minWidth={769}>
-        <DesktopHeaderSlot props={props} />
-      </Responsive>
-    </>
+    <RowadHeader
+      authenticatedUser={authenticatedUser}
+      config={config}
+      locale={intl.locale}
+      minimal={false}
+      userMenu={userMenu}
+    />
   );
 };
 

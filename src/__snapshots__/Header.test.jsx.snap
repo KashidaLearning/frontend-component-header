@@ -1,445 +1,949 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Header /> renders correctly for anonymous desktop 1`] = `
-<header
-  className="site-header-desktop"
+<div
+  className="rowad-mfe-header-shell"
+  dir="ltr"
+  lang="en"
 >
   <a
-    className="nav-skip sr-only sr-only-focusable"
+    className="rowad-skip-link"
     href="#main"
   >
-    Skip to main content
+    Primary navigation
   </a>
-  <div
-    className="container-fluid null"
+  <header
+    className="rowad-main-header"
   >
     <div
-      className="nav-container position-relative d-flex align-items-center"
+      className="rowad-header-main"
     >
-      <a
-        className="logo"
-        href="http://localhost:18000/dashboard"
-      >
-        <img
-          alt="edX"
-          className="d-block"
-          src="https://edx-cdn.org/v3/default/logo.svg"
-        />
-      </a>
-      <nav
-        aria-label="Main"
-        className="nav main-nav"
+      <div
+        className="rowad-header-main-inner"
       >
         <a
-          className="nav-link"
-          href="http://localhost:18000/dashboard"
-          onClick={null}
+          aria-label="Rowad — Home"
+          className="rowad-brand-link"
+          href="https://d1p65zue2xzvrm.cloudfront.net/"
         >
-          Courses
+          <img
+            alt=""
+            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+          />
         </a>
-      </nav>
-      <nav
-        aria-label="Secondary"
-        className="nav secondary-menu-container align-items-center ml-auto"
+        <nav
+          aria-label="Primary navigation"
+          className="rowad-site-nav"
+        >
+          <ul
+            className="rowad-nav-list"
+          >
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                Explore
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                For Who
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+              >
+                Journey Guide
+              </a>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+              >
+                About
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div
+      className="rowad-header-actions"
+    >
+      <div
+        className="rowad-header-action-spacer"
+      />
+      <div
+        className="rowad-desktop-actions"
       >
         <a
-          className="btn mr-2 btn-link"
+          className="rowad-header-button rowad-courses-button"
+          href="http://localhost:18000/courses"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4M2 6h4M2 10h4M2 14h4M2 18h4"
+            />
+            <path
+              d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
+            />
+          </svg>
+          <span>
+            Rowad Courses
+          </span>
+        </a>
+        <a
+          className="rowad-header-button rowad-login-button"
           href="http://localhost:18000/login"
         >
-          Login
+          <svg
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+            />
+            <circle
+              cx="12"
+              cy="7"
+              r="4"
+            />
+          </svg>
+          <span>
+            Log In
+          </span>
         </a>
-        <a
-          className="btn mr-2 btn-outline-primary"
-          href="http://localhost:18000/register"
+      </div>
+      <button
+        aria-expanded={false}
+        aria-label="Open search"
+        className="rowad-header-button rowad-search-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
         >
-          Sign Up
-        </a>
-      </nav>
+          <circle
+            cx="11"
+            cy="11"
+            r="8"
+          />
+          <path
+            d="m21 21-4.3-4.3"
+          />
+        </svg>
+      </button>
+      <button
+        aria-expanded={false}
+        aria-label="Languages"
+        className="rowad-header-button rowad-language-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt=""
+          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+        />
+      </button>
+      <button
+        aria-expanded={false}
+        aria-label="Open menu"
+        className="rowad-header-button rowad-menu-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
     </div>
-  </div>
-</header>
+  </header>
+</div>
 `;
 
 exports[`<Header /> renders correctly for anonymous mobile 1`] = `
-<header
-  aria-label="Main"
-  className="site-header-mobile d-flex justify-content-between align-items-center shadow sticky-top"
+<div
+  className="rowad-mfe-header-shell"
+  dir="ltr"
+  lang="en"
 >
   <a
-    className="nav-skip sr-only sr-only-focusable"
+    className="rowad-skip-link"
     href="#main"
   >
-    Skip to main content
+    Primary navigation
   </a>
-  <div
-    className="w-100 d-flex justify-content-start"
+  <header
+    className="rowad-main-header"
   >
     <div
-      className="menu position-static"
-      onKeyDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
+      className="rowad-header-main"
     >
+      <div
+        className="rowad-header-main-inner"
+      >
+        <a
+          aria-label="Rowad — Home"
+          className="rowad-brand-link"
+          href="https://d1p65zue2xzvrm.cloudfront.net/"
+        >
+          <img
+            alt=""
+            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+          />
+        </a>
+        <nav
+          aria-label="Primary navigation"
+          className="rowad-site-nav"
+        >
+          <ul
+            className="rowad-nav-list"
+          >
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                Explore
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                For Who
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+              >
+                Journey Guide
+              </a>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+              >
+                About
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div
+      className="rowad-header-actions"
+    >
+      <div
+        className="rowad-header-action-spacer"
+      />
+      <div
+        className="rowad-desktop-actions"
+      >
+        <a
+          className="rowad-header-button rowad-courses-button"
+          href="http://localhost:18000/courses"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4M2 6h4M2 10h4M2 14h4M2 18h4"
+            />
+            <path
+              d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
+            />
+          </svg>
+          <span>
+            Rowad Courses
+          </span>
+        </a>
+        <a
+          className="rowad-header-button rowad-login-button"
+          href="http://localhost:18000/login"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+            />
+            <circle
+              cx="12"
+              cy="7"
+              r="4"
+            />
+          </svg>
+          <span>
+            Log In
+          </span>
+        </a>
+      </div>
       <button
         aria-expanded={false}
-        aria-haspopup="menu"
-        aria-label="Main Menu"
-        className="menu-trigger icon-button"
+        aria-label="Open search"
+        className="rowad-header-button rowad-search-button"
         onClick={[Function]}
-        title="Main Menu"
+        type="button"
       >
         <svg
-          aria-hidden={true}
-          focusable="false"
-          height="24px"
-          role="img"
-          style={
-            {
-              "height": "1.5rem",
-              "width": "1.5rem",
-            }
-          }
-          version="1.1"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
-          width="24px"
         >
-          <rect
-            fill="currentColor"
-            height="2"
-            width="20"
-            x="2"
-            y="5"
+          <circle
+            cx="11"
+            cy="11"
+            r="8"
           />
-          <rect
-            fill="currentColor"
-            height="2"
-            width="20"
-            x="2"
-            y="11"
+          <path
+            d="m21 21-4.3-4.3"
           />
-          <rect
-            fill="currentColor"
-            height="2"
-            width="20"
-            x="2"
-            y="17"
+        </svg>
+      </button>
+      <button
+        aria-expanded={false}
+        aria-label="Languages"
+        className="rowad-header-button rowad-language-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt=""
+          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+        />
+      </button>
+      <button
+        aria-expanded={false}
+        aria-label="Open menu"
+        className="rowad-header-button rowad-menu-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M4 6h16M4 12h16M4 18h16"
           />
         </svg>
       </button>
     </div>
-  </div>
-  <div
-    className="w-100 d-flex justify-content-center"
-  >
-    <a
-      className="logo"
-      href="http://localhost:18000/dashboard"
-      itemType="http://schema.org/Organization"
-    >
-      <img
-        alt="edX"
-        className="d-block"
-        src="https://edx-cdn.org/v3/default/logo.svg"
-      />
-    </a>
-  </div>
-  <div
-    className="w-100 d-flex justify-content-end align-items-center"
-  >
-    <nav
-      aria-label="Secondary"
-      className="menu position-static"
-      onKeyDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-    >
-      <button
-        aria-expanded={false}
-        aria-haspopup="menu"
-        aria-label="Account Menu"
-        className="menu-trigger icon-button"
-        onClick={[Function]}
-        title="Account Menu"
-      >
-        <span
-          className="avatar overflow-hidden d-inline-flex rounded-circle null"
-          style={
-            {
-              "height": "1.5rem",
-              "width": "1.5rem",
-            }
-          }
-        >
-          <svg
-            aria-hidden={true}
-            focusable="false"
-            height="24px"
-            role="img"
-            style={
-              {
-                "height": "1.5rem",
-                "width": "1.5rem",
-              }
-            }
-            version="1.1"
-            viewBox="0 0 24 24"
-            width="24px"
-          >
-            <path
-              d="M4.10255106,18.1351061 C4.7170266,16.0581859 8.01891846,14.4720277 12,14.4720277 C15.9810815,14.4720277 19.2829734,16.0581859 19.8974489,18.1351061 C21.215206,16.4412566 22,14.3122775 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,14.3122775 2.78479405,16.4412566 4.10255106,18.1351061 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z M12,13 C9.790861,13 8,11.209139 8,9 C8,6.790861 9.790861,5 12,5 C14.209139,5 16,6.790861 16,9 C16,11.209139 14.209139,13 12,13 Z"
-              fill="currentColor"
-            />
-          </svg>
-        </span>
-      </button>
-    </nav>
-  </div>
-</header>
+  </header>
+</div>
 `;
 
 exports[`<Header /> renders correctly for authenticated desktop 1`] = `
-<header
-  className="site-header-desktop"
+<div
+  className="rowad-mfe-header-shell"
+  dir="ltr"
+  lang="en"
 >
   <a
-    className="nav-skip sr-only sr-only-focusable"
+    className="rowad-skip-link"
     href="#main"
   >
-    Skip to main content
+    Primary navigation
   </a>
-  <div
-    className="container-fluid null"
+  <header
+    className="rowad-main-header"
   >
     <div
-      className="nav-container position-relative d-flex align-items-center"
+      className="rowad-header-main"
     >
-      <a
-        className="logo"
-        href="http://localhost:18000/dashboard"
-      >
-        <img
-          alt="edX"
-          className="d-block"
-          src="https://edx-cdn.org/v3/default/logo.svg"
-        />
-      </a>
-      <nav
-        aria-label="Main"
-        className="nav main-nav"
+      <div
+        className="rowad-header-main-inner"
       >
         <a
-          className="nav-link"
-          href="http://localhost:18000/dashboard"
-          onClick={null}
+          aria-label="Rowad — Home"
+          className="rowad-brand-link"
+          href="https://d1p65zue2xzvrm.cloudfront.net/"
         >
-          Courses
+          <img
+            alt=""
+            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+          />
         </a>
-      </nav>
-      <nav
-        aria-label="Secondary"
-        className="nav secondary-menu-container align-items-center ml-auto"
-      >
-        <div
-          className="menu null"
-          onKeyDown={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
+        <nav
+          aria-label="Primary navigation"
+          className="rowad-site-nav"
         >
-          <button
-            aria-expanded={false}
-            aria-haspopup="menu"
-            aria-label="Account menu for edX"
-            className="menu-trigger btn btn-outline-primary d-inline-flex align-items-center pl-2 pr-3"
-            onClick={[Function]}
+          <ul
+            className="rowad-nav-list"
           >
-            <span
-              className="avatar overflow-hidden d-inline-flex rounded-circle mr-2"
-              style={
-                {
-                  "height": "1.5em",
-                  "width": "1.5em",
-                }
-              }
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
-              <svg
-                aria-hidden={true}
-                focusable="false"
-                height="24px"
-                role="img"
-                style={
-                  {
-                    "height": "1.5em",
-                    "width": "1.5em",
-                  }
-                }
-                version="1.1"
-                viewBox="0 0 24 24"
-                width="24px"
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
               >
-                <path
-                  d="M4.10255106,18.1351061 C4.7170266,16.0581859 8.01891846,14.4720277 12,14.4720277 C15.9810815,14.4720277 19.2829734,16.0581859 19.8974489,18.1351061 C21.215206,16.4412566 22,14.3122775 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,14.3122775 2.78479405,16.4412566 4.10255106,18.1351061 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z M12,13 C9.790861,13 8,11.209139 8,9 C8,6.790861 9.790861,5 12,5 C14.209139,5 16,6.790861 16,9 C16,11.209139 14.209139,13 12,13 Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
-            edX
-             
-            <svg
-              aria-hidden={true}
-              focusable="false"
-              height="16px"
-              role="img"
-              version="1.1"
-              viewBox="0 0 16 16"
-              width="16px"
+                Explore
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
             >
-              <path
-                d="M7,4 L7,8 L11,8 L11,10 L5,10 L5,4 L7,4 Z"
-                fill="currentColor"
-                transform="translate(8.000000, 7.000000) rotate(-45.000000) translate(-8.000000, -7.000000) "
-              />
-            </svg>
-          </button>
-        </div>
-      </nav>
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                For Who
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+              >
+                Journey Guide
+              </a>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+              >
+                About
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
-</header>
-`;
-
-exports[`<Header /> renders correctly for authenticated mobile 1`] = `
-<header
-  aria-label="Main"
-  className="site-header-mobile d-flex justify-content-between align-items-center shadow sticky-top"
->
-  <a
-    className="nav-skip sr-only sr-only-focusable"
-    href="#main"
-  >
-    Skip to main content
-  </a>
-  <div
-    className="w-100 d-flex justify-content-start"
-  >
     <div
-      className="menu position-static"
-      onKeyDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
+      className="rowad-header-actions"
     >
+      <div
+        className="rowad-header-action-spacer"
+      />
+      <div
+        className="rowad-desktop-actions"
+      >
+        <a
+          className="rowad-header-button rowad-courses-button"
+          href="http://localhost:18000/courses"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4M2 6h4M2 10h4M2 14h4M2 18h4"
+            />
+            <path
+              d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
+            />
+          </svg>
+          <span>
+            Rowad Courses
+          </span>
+        </a>
+        <button
+          aria-expanded={false}
+          className="rowad-header-button rowad-account-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+            />
+            <circle
+              cx="12"
+              cy="7"
+              r="4"
+            />
+          </svg>
+          <span>
+            edX
+          </span>
+          <svg
+            aria-hidden="true"
+            className="rowad-chevron"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m6 9 6 6 6-6"
+            />
+          </svg>
+        </button>
+      </div>
       <button
         aria-expanded={false}
-        aria-haspopup="menu"
-        aria-label="Main Menu"
-        className="menu-trigger icon-button"
+        aria-label="Open search"
+        className="rowad-header-button rowad-search-button"
         onClick={[Function]}
-        title="Main Menu"
+        type="button"
       >
         <svg
-          aria-hidden={true}
-          focusable="false"
-          height="24px"
-          role="img"
-          style={
-            {
-              "height": "1.5rem",
-              "width": "1.5rem",
-            }
-          }
-          version="1.1"
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
           viewBox="0 0 24 24"
-          width="24px"
         >
-          <rect
-            fill="currentColor"
-            height="2"
-            width="20"
-            x="2"
-            y="5"
+          <circle
+            cx="11"
+            cy="11"
+            r="8"
           />
-          <rect
-            fill="currentColor"
-            height="2"
-            width="20"
-            x="2"
-            y="11"
+          <path
+            d="m21 21-4.3-4.3"
           />
-          <rect
-            fill="currentColor"
-            height="2"
-            width="20"
-            x="2"
-            y="17"
+        </svg>
+      </button>
+      <button
+        aria-expanded={false}
+        aria-label="Languages"
+        className="rowad-header-button rowad-language-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt=""
+          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+        />
+      </button>
+      <button
+        aria-expanded={false}
+        aria-label="Open menu"
+        className="rowad-header-button rowad-menu-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M4 6h16M4 12h16M4 18h16"
           />
         </svg>
       </button>
     </div>
-  </div>
-  <div
-    className="w-100 d-flex justify-content-center"
+  </header>
+</div>
+`;
+
+exports[`<Header /> renders correctly for authenticated mobile 1`] = `
+<div
+  className="rowad-mfe-header-shell"
+  dir="ltr"
+  lang="en"
+>
+  <a
+    className="rowad-skip-link"
+    href="#main"
   >
-    <a
-      className="logo"
-      href="http://localhost:18000/dashboard"
-      itemType="http://schema.org/Organization"
-    >
-      <img
-        alt="edX"
-        className="d-block"
-        src="https://edx-cdn.org/v3/default/logo.svg"
-      />
-    </a>
-  </div>
-  <div
-    className="w-100 d-flex justify-content-end align-items-center"
+    Primary navigation
+  </a>
+  <header
+    className="rowad-main-header"
   >
-    <nav
-      aria-label="Secondary"
-      className="menu position-static"
-      onKeyDown={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
+    <div
+      className="rowad-header-main"
     >
-      <button
-        aria-expanded={false}
-        aria-haspopup="menu"
-        aria-label="Account Menu"
-        className="menu-trigger icon-button"
-        onClick={[Function]}
-        title="Account Menu"
+      <div
+        className="rowad-header-main-inner"
       >
-        <span
-          className="avatar overflow-hidden d-inline-flex rounded-circle null"
-          style={
-            {
-              "height": "1.5rem",
-              "width": "1.5rem",
-            }
-          }
+        <a
+          aria-label="Rowad — Home"
+          className="rowad-brand-link"
+          href="https://d1p65zue2xzvrm.cloudfront.net/"
+        >
+          <img
+            alt=""
+            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+          />
+        </a>
+        <nav
+          aria-label="Primary navigation"
+          className="rowad-site-nav"
+        >
+          <ul
+            className="rowad-nav-list"
+          >
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                Explore
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+            >
+              <button
+                aria-expanded={false}
+                className="rowad-nav-trigger"
+                onClick={[Function]}
+                type="button"
+              >
+                For Who
+                <svg
+                  aria-hidden="true"
+                  className="rowad-chevron"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+              >
+                Journey Guide
+              </a>
+            </li>
+            <li>
+              <a
+                className="rowad-nav-link"
+                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+              >
+                About
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div
+      className="rowad-header-actions"
+    >
+      <div
+        className="rowad-header-action-spacer"
+      />
+      <div
+        className="rowad-desktop-actions"
+      >
+        <a
+          className="rowad-header-button rowad-courses-button"
+          href="http://localhost:18000/courses"
         >
           <svg
-            aria-hidden={true}
-            focusable="false"
-            height="24px"
-            role="img"
-            style={
-              {
-                "height": "1.5rem",
-                "width": "1.5rem",
-              }
-            }
-            version="1.1"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             viewBox="0 0 24 24"
-            width="24px"
           >
             <path
-              d="M4.10255106,18.1351061 C4.7170266,16.0581859 8.01891846,14.4720277 12,14.4720277 C15.9810815,14.4720277 19.2829734,16.0581859 19.8974489,18.1351061 C21.215206,16.4412566 22,14.3122775 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,14.3122775 2.78479405,16.4412566 4.10255106,18.1351061 Z M12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 Z M12,13 C9.790861,13 8,11.209139 8,9 C8,6.790861 9.790861,5 12,5 C14.209139,5 16,6.790861 16,9 C16,11.209139 14.209139,13 12,13 Z"
-              fill="currentColor"
+              d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4M2 6h4M2 10h4M2 14h4M2 18h4"
+            />
+            <path
+              d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"
             />
           </svg>
-        </span>
+          <span>
+            Rowad Courses
+          </span>
+        </a>
+        <button
+          aria-expanded={false}
+          className="rowad-header-button rowad-account-button"
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+            />
+            <circle
+              cx="12"
+              cy="7"
+              r="4"
+            />
+          </svg>
+          <span>
+            edX
+          </span>
+          <svg
+            aria-hidden="true"
+            className="rowad-chevron"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="m6 9 6 6 6-6"
+            />
+          </svg>
+        </button>
+      </div>
+      <button
+        aria-expanded={false}
+        aria-label="Open search"
+        className="rowad-header-button rowad-search-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            cx="11"
+            cy="11"
+            r="8"
+          />
+          <path
+            d="m21 21-4.3-4.3"
+          />
+        </svg>
       </button>
-    </nav>
-  </div>
-</header>
+      <button
+        aria-expanded={false}
+        aria-label="Languages"
+        className="rowad-header-button rowad-language-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <img
+          alt=""
+          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+        />
+      </button>
+      <button
+        aria-expanded={false}
+        aria-label="Open menu"
+        className="rowad-header-button rowad-menu-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+    </div>
+  </header>
+</div>
 `;

@@ -1,0 +1,513 @@
+import React, {
+  useEffect, useRef, useState,
+} from 'react';
+import PropTypes from 'prop-types';
+
+const ROWAD_SITE = 'https://d1p65zue2xzvrm.cloudfront.net';
+const ENGLISH_FLAG = `${ROWAD_SITE}/_astro/english-usa.DqJ3CMLO.webp`;
+const ARABIC_FLAG = `${ROWAD_SITE}/_astro/arabic-ksa.Cr2p1ofg.webp`;
+
+const TEXT = {
+  en: {
+    explore: 'Explore',
+    forWho: 'For Who',
+    journey: 'Journey Guide',
+    about: 'About',
+    coursesButton: 'Rowad Courses',
+    login: 'Log In',
+    languages: 'Languages',
+    englishExtended: 'English (United States)',
+    arabicExtended: 'Arabic (Saudi Arabia)',
+    learn: 'LEARN',
+    connect: 'CONNECT',
+    find: 'FIND',
+    collaborate: 'COLLABORATE',
+    courses: 'Courses',
+    podcasts: 'Podcasts',
+    blogs: 'Blogs',
+    mentorship: 'Mentorship program',
+    consultation: 'Consultation Support',
+    partnerships: 'Partnerships',
+    initiatives: 'Initiatives',
+    linkedin: 'LinkedIn Group',
+    bookClub: 'Book Club',
+    glossary: 'Glossary',
+    tools: 'Tools Directory',
+    funding: 'Funding Directory',
+    experts: 'Experts Directory',
+    accelerators: 'Accelerators/incubator lists',
+    events: 'Events calendar',
+    startPartnership: 'Start partnership',
+    mentor: 'Become a mentor',
+    ambassador: 'Become an Ambassador',
+    special: 'Special requests',
+    library: 'Library',
+    libraryDesc: 'Browse all available assets',
+    starting: 'Starting a Business',
+    running: 'Running a Business',
+    growing: 'Growing a Business',
+    startingDesc: 'You have the vision. We have the roadmap. Rowad provides the foundational support, mentorship, and funding connections to help you launch successfully.',
+    runningDesc: 'Your business is up and running. Rowad helps you streamline operations, strengthen your team, and navigate day-to-day challenges with expert advice and practical tools built for established founders.',
+    growingDesc: 'Ready to scale? Rowad connects you with the strategy, partnerships, and growth capital you need to expand into new markets and take your business to the next level with confidence.',
+    searchLabel: 'Search for blogs, events, and more...',
+    search: 'Search',
+    primaryNav: 'Primary navigation',
+    mobileNav: 'Mobile navigation',
+    openSearch: 'Open search',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    businessStage: 'Business stage',
+    homeLabel: 'Rowad — Home',
+    accountMenu: 'Account menu',
+  },
+  ar: {
+    explore: 'استكشف',
+    forWho: 'لمن',
+    journey: 'دليل الرحلة',
+    about: 'حول',
+    coursesButton: 'دورات رواد',
+    login: 'تسجيل الدخول',
+    languages: 'اللغات',
+    englishExtended: 'الإنجليزية (الولايات المتحدة)',
+    arabicExtended: 'العربية (المملكة العربية السعودية)',
+    learn: 'تعلم',
+    connect: 'تواصل',
+    find: 'ابحث',
+    collaborate: 'تعاون',
+    courses: 'الدورات',
+    podcasts: 'البودكاست',
+    blogs: 'المدونات',
+    mentorship: 'برنامج التوجيه',
+    consultation: 'دعم الاستشارات',
+    partnerships: 'الشراكات',
+    initiatives: 'المبادرات',
+    linkedin: 'مجموعة لينكد إن',
+    bookClub: 'نادي الكتاب',
+    glossary: 'المصطلحات',
+    tools: 'دليل الأدوات',
+    funding: 'دليل التمويل',
+    experts: 'دليل الخبراء',
+    accelerators: 'قوائم المسرعات والحاضنات',
+    events: 'تقويم الفعاليات',
+    startPartnership: 'ابدأ شراكة',
+    mentor: 'كن موجهًا',
+    ambassador: 'كن سفيرًا',
+    special: 'طلبات خاصة',
+    library: 'المكتبة',
+    libraryDesc: 'تصفح جميع الأصول المتاحة',
+    starting: 'بدء مشروع تجاري',
+    running: 'إدارة مشروع تجاري',
+    growing: 'تنمية مشروع تجاري',
+    startingDesc: "لديك الرؤية ولدينا خارطة الطريق. تقدم 'رواد' الدعم التأسيسي، والتوجيه، واتصالات التمويل لمساعدتك على الانطلاق بنجاح.",
+    runningDesc: "مشروعك قائم ويعمل. تساعدك 'رواد' على تطوير عملياتك، وتعزيز فريقك، وتجاوز تحديات العمل اليومية بمشورة الخبراء وأدوات عملية مصممة لرواد الأعمال الراسخين.",
+    growingDesc: "هل أنت مستعد للتوسع؟ تربطك 'رواد' بالاستراتيجيات والشراكات ورأس المال اللازم للنمو، لتدخل أسواقاً جديدة وترتقي بمشروعك إلى المستوى التالي بثقة.",
+    searchLabel: 'ابحث عن المدونات والفعاليات والمزيد...',
+    search: 'بحث',
+    primaryNav: 'التنقل الرئيسي',
+    mobileNav: 'التنقل عبر الجوال',
+    openSearch: 'فتح البحث',
+    openMenu: 'فتح القائمة',
+    closeMenu: 'إغلاق القائمة',
+    businessStage: 'مرحلة المشروع',
+    homeLabel: 'رواد — الرئيسية',
+    accountMenu: 'قائمة الحساب',
+  },
+};
+
+const ROUTES = {
+  en: {
+    home: '/', journey: '/journey-guide', about: '/about', courses: '/courses', podcasts: '/podcasts', blogs: '/blogs', partnerships: '/partnerships', initiatives: '/initiatives', glossary: '/glossary', tools: '/tools-directory', funding: '/funding-directory', experts: '/experts-directory', events: '/events', startPartnership: '/start-partnership', mentor: '/become-a-mentor', ambassador: '/become-an-ambassador', special: '/special-requests', library: '/library', starting: '/for-who/starting', running: '/for-who/running', growing: '/for-who/growing', search: '/search',
+  },
+  ar: {
+    home: '/ar', journey: '/ar/دليل-الرحلة', about: '/ar/حول', courses: '/ar/دورات', podcasts: '/ar/بودكاست', blogs: '/ar/مدونات', partnerships: '/ar/شراكات', initiatives: '/ar/مبادرات', glossary: '/ar/مصطلحات', tools: '/ar/دليل-الأدوات', funding: '/ar/دليل-التمويل', experts: '/ar/دليل-الخبراء', events: '/ar/فعاليات', startPartnership: '/ar/ابدأ-شراكة', mentor: '/ar/كن-مرشدا', ambassador: '/ar/كن-سفيرا', special: '/ar/طلبات-خاصة', library: '/ar/library', starting: '/ar/لمن/بدء', running: '/ar/لمن/إدارة', growing: '/ar/لمن/تنمية', search: '/ar/search',
+  },
+};
+
+const ChevronIcon = () => (
+  <svg className="rowad-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
+
+const ExternalIcon = () => (
+  <svg className="rowad-external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+  </svg>
+);
+
+const ArrowIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+    <path d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
+
+const BookIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M12 7v14M16 12h2M16 8h2M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3zM6 12h2M6 8h2" />
+  </svg>
+);
+
+const CoursesIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4M2 6h4M2 10h4M2 14h4M2 18h4" />
+    <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+  </svg>
+);
+
+const UserIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const SearchIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </svg>
+);
+
+const MenuIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <path d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+);
+
+const RowadHeader = ({
+  authenticatedUser, config, locale, minimal, userMenu,
+}) => {
+  const language = String(locale || 'en').toLowerCase().split('-')[0] === 'ar' ? 'ar' : 'en';
+  const direction = language === 'ar' ? 'rtl' : 'ltr';
+  const text = TEXT[language];
+  const routes = ROUTES[language];
+  const rootRef = useRef(null);
+  const hoverTimerRef = useRef(null);
+  const searchInputRef = useRef(null);
+  const [openPanel, setOpenPanel] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [audience, setAudience] = useState(0);
+  const [query, setQuery] = useState('');
+
+  const siteUrl = path => `${ROWAD_SITE}${path}`;
+  const lmsUrl = path => `${String(config.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
+  const coursesUrl = lmsUrl('/courses');
+  const dashboardUrl = lmsUrl('/dashboard');
+
+  const closeAll = () => {
+    setOpenPanel(null);
+    setMobileOpen(false);
+  };
+
+  const togglePanel = (panel) => {
+    setMobileOpen(false);
+    setOpenPanel(current => (current === panel ? null : panel));
+  };
+
+  const openMegaMenu = (panel) => {
+    window.clearTimeout(hoverTimerRef.current);
+    setOpenPanel(panel);
+    setMobileOpen(false);
+  };
+
+  const scheduleMegaMenuClose = () => {
+    window.clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = window.setTimeout(() => setOpenPanel(null), 180);
+  };
+
+  useEffect(() => {
+    const closeFromOutside = (event) => {
+      if (rootRef.current && !rootRef.current.contains(event.target)) {
+        closeAll();
+      }
+    };
+    const closeFromEscape = (event) => {
+      if (event.key === 'Escape') {
+        closeAll();
+      }
+    };
+
+    document.addEventListener('mousedown', closeFromOutside);
+    document.addEventListener('keydown', closeFromEscape);
+    return () => {
+      window.clearTimeout(hoverTimerRef.current);
+      document.removeEventListener('mousedown', closeFromOutside);
+      document.removeEventListener('keydown', closeFromEscape);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (openPanel === 'search') {
+      searchInputRef.current?.focus();
+    }
+  }, [openPanel]);
+
+  const changeLanguage = (nextLanguage) => {
+    const cookieName = config.LANGUAGE_PREFERENCE_COOKIE_NAME || 'openedx-language-preference';
+    const secure = window.location.protocol === 'https:' ? ';secure' : '';
+    document.cookie = `${encodeURIComponent(cookieName)}=${encodeURIComponent(nextLanguage)};path=/;max-age=31536000;samesite=lax${secure}`;
+    window.location.reload();
+  };
+
+  const submitSearch = (event) => {
+    event.preventDefault();
+    const value = query.trim();
+    if (value) {
+      window.location.assign(`${siteUrl(routes.search)}?q=${encodeURIComponent(value)}`);
+    }
+  };
+
+  const renderMegaLink = (href, label, external = false) => (
+    <a
+      className="rowad-mega-link"
+      href={href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      {label}
+      {external && <ExternalIcon />}
+    </a>
+  );
+
+  const audienceItems = [
+    {
+      label: text.starting,
+      description: text.startingDesc,
+      route: routes.starting,
+      image: `${ROWAD_SITE}/_astro/for-who-start.tb_8J_eb.svg`,
+    },
+    {
+      label: text.running,
+      description: text.runningDesc,
+      route: routes.running,
+      image: `${ROWAD_SITE}/_astro/for-who-run.Ci_nmClx.svg`,
+    },
+    {
+      label: text.growing,
+      description: text.growingDesc,
+      route: routes.growing,
+      image: `${ROWAD_SITE}/_astro/for-who-grow.Ds1Pn02y.svg`,
+    },
+  ];
+
+  return (
+    <div ref={rootRef} className="rowad-mfe-header-shell" lang={language} dir={direction}>
+      <a className="rowad-skip-link" href="#main">{text.primaryNav}</a>
+      <header className="rowad-main-header">
+        <div className="rowad-header-main">
+          <div className="rowad-header-main-inner">
+            <a className="rowad-brand-link" href={siteUrl(routes.home)} aria-label={text.homeLabel}>
+              <img src={`${ROWAD_SITE}/${language === 'ar' ? 'logo-ar-light.svg' : 'logo-en-light.svg'}`} alt="" />
+            </a>
+            {!minimal && (
+              <nav className="rowad-site-nav" aria-label={text.primaryNav}>
+                <ul className="rowad-nav-list">
+                  <li
+                    onMouseEnter={() => openMegaMenu('explore')}
+                    onMouseLeave={scheduleMegaMenuClose}
+                  >
+                    <button className="rowad-nav-trigger" type="button" onClick={() => togglePanel('explore')} aria-expanded={openPanel === 'explore'}>
+                      {text.explore}<ChevronIcon />
+                    </button>
+                  </li>
+                  <li
+                    onMouseEnter={() => openMegaMenu('forWho')}
+                    onMouseLeave={scheduleMegaMenuClose}
+                  >
+                    <button className="rowad-nav-trigger" type="button" onClick={() => togglePanel('forWho')} aria-expanded={openPanel === 'forWho'}>
+                      {text.forWho}<ChevronIcon />
+                    </button>
+                  </li>
+                  <li><a className="rowad-nav-link" href={siteUrl(routes.journey)}>{text.journey}</a></li>
+                  <li><a className="rowad-nav-link" href={siteUrl(routes.about)}>{text.about}</a></li>
+                </ul>
+              </nav>
+            )}
+          </div>
+        </div>
+
+        <div className="rowad-header-actions">
+          <div className="rowad-header-action-spacer" />
+          {!minimal && (
+            <div className="rowad-desktop-actions">
+              <a className="rowad-header-button rowad-courses-button" href={coursesUrl}>
+                <CoursesIcon /><span>{text.coursesButton}</span>
+              </a>
+              {authenticatedUser ? (
+                <button className="rowad-header-button rowad-account-button" type="button" onClick={() => togglePanel('account')} aria-expanded={openPanel === 'account'}>
+                  <UserIcon /><span>{authenticatedUser.username}</span><ChevronIcon />
+                </button>
+              ) : (
+                <a className="rowad-header-button rowad-login-button" href={config.LOGIN_URL}>
+                  <UserIcon /><span>{text.login}</span>
+                </a>
+              )}
+            </div>
+          )}
+          {!minimal && (
+            <button className="rowad-header-button rowad-search-button" type="button" onClick={() => togglePanel('search')} aria-label={text.openSearch} aria-expanded={openPanel === 'search'}>
+              <SearchIcon />
+            </button>
+          )}
+          <button className="rowad-header-button rowad-language-button" type="button" onClick={() => togglePanel('language')} aria-label={text.languages} aria-expanded={openPanel === 'language'}>
+            <img src={language === 'ar' ? ARABIC_FLAG : ENGLISH_FLAG} alt="" />
+          </button>
+          {!minimal && (
+            <button className="rowad-header-button rowad-menu-button" type="button" onClick={() => { setOpenPanel(null); setMobileOpen(value => !value); }} aria-label={mobileOpen ? text.closeMenu : text.openMenu} aria-expanded={mobileOpen}>
+              <MenuIcon />
+            </button>
+          )}
+        </div>
+      </header>
+
+      {!minimal && openPanel === 'explore' && (
+        <div className="rowad-popup rowad-mega-popup" onMouseEnter={() => window.clearTimeout(hoverTimerRef.current)} onMouseLeave={scheduleMegaMenuClose}>
+          <div className="rowad-explore-menu">
+            <div className="rowad-explore-columns">
+              <section className="rowad-explore-column"><h3>{text.learn}</h3><div className="rowad-column-rule" />
+                {renderMegaLink(siteUrl(routes.courses), text.courses)}
+                {renderMegaLink(siteUrl(routes.podcasts), text.podcasts)}
+                {renderMegaLink(siteUrl(routes.blogs), text.blogs)}
+              </section>
+              <section className="rowad-explore-column"><h3>{text.connect}</h3><div className="rowad-column-rule" />
+                {renderMegaLink('https://mentors.com/', text.mentorship, true)}
+                {renderMegaLink('https://consulting.com/', text.consultation, true)}
+                {renderMegaLink(siteUrl(routes.partnerships), text.partnerships)}
+                {renderMegaLink(siteUrl(routes.initiatives), text.initiatives)}
+                {renderMegaLink('https://www.linkedin.com/', text.linkedin, true)}
+                {renderMegaLink('https://bookclubs.com/', text.bookClub, true)}
+              </section>
+              <section className="rowad-explore-column"><h3>{text.find}</h3><div className="rowad-column-rule" />
+                {renderMegaLink(siteUrl(routes.glossary), text.glossary)}
+                {renderMegaLink(siteUrl(routes.tools), text.tools)}
+                {renderMegaLink(siteUrl(routes.funding), text.funding)}
+                {renderMegaLink(siteUrl(routes.experts), text.experts)}
+                {renderMegaLink('https://www.ycombinator.com/', text.accelerators, true)}
+                {renderMegaLink(siteUrl(routes.events), text.events)}
+              </section>
+              <section className="rowad-explore-column"><h3>{text.collaborate}</h3><div className="rowad-column-rule" />
+                {renderMegaLink(siteUrl(routes.startPartnership), text.startPartnership)}
+                {renderMegaLink(siteUrl(routes.mentor), text.mentor)}
+                {renderMegaLink(siteUrl(routes.ambassador), text.ambassador)}
+                {renderMegaLink(siteUrl(routes.special), text.special)}
+              </section>
+            </div>
+            <aside className="rowad-explore-library">
+              <a className="rowad-library-link" href={siteUrl(routes.library)}>
+                <BookIcon /><span><strong>{text.library}</strong><small>{text.libraryDesc}</small></span>
+              </a>
+            </aside>
+          </div>
+        </div>
+      )}
+
+      {!minimal && openPanel === 'forWho' && (
+        <div className="rowad-popup rowad-mega-popup" onMouseEnter={() => window.clearTimeout(hoverTimerRef.current)} onMouseLeave={scheduleMegaMenuClose}>
+          <div className="rowad-for-who-menu">
+            <ul className="rowad-audience-tabs" role="tablist" aria-label={text.businessStage}>
+              {audienceItems.map((item, index) => (
+                <li key={item.route}>
+                  <button className={`rowad-audience-tab${audience === index ? ' is-active' : ''}`} type="button" role="tab" aria-selected={audience === index} onMouseEnter={() => setAudience(index)} onFocus={() => setAudience(index)} onClick={() => setAudience(index)}>
+                    {item.label}<ArrowIcon />
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="rowad-audience-panel">
+              <div>
+                <p>{audienceItems[audience].description}</p>
+                <a href={siteUrl(audienceItems[audience].route)}>{audienceItems[audience].label}</a>
+              </div>
+              <img src={audienceItems[audience].image} alt="" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!minimal && openPanel === 'search' && (
+        <div className="rowad-popup rowad-search-popup">
+          <form className="rowad-search-form" onSubmit={submitSearch}>
+            <label className="sr-only" htmlFor="rowad-mfe-search">{text.searchLabel}</label>
+            <input ref={searchInputRef} id="rowad-mfe-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={text.searchLabel} />
+            <button type="submit">{text.search}</button>
+          </form>
+        </div>
+      )}
+
+      {openPanel === 'language' && (
+        <div className="rowad-popup rowad-language-popup" role="menu">
+          <div className="rowad-language-title">{text.languages}</div>
+          <button className="rowad-language-option" type="button" role="menuitemradio" aria-checked={language === 'en'} onClick={() => changeLanguage('en')}>
+            <img src={ENGLISH_FLAG} alt="" /><span>{text.englishExtended}</span>
+          </button>
+          <button className="rowad-language-option" type="button" role="menuitemradio" aria-checked={language === 'ar'} onClick={() => changeLanguage('ar')}>
+            <img src={ARABIC_FLAG} alt="" /><span>{text.arabicExtended}</span>
+          </button>
+        </div>
+      )}
+
+      {!minimal && authenticatedUser && openPanel === 'account' && (
+        <div className="rowad-popup rowad-account-popup">
+          {userMenu.map((group, groupIndex) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <React.Fragment key={groupIndex}>
+              {group.heading && <div className="rowad-account-heading">{group.heading}</div>}
+              {group.items.map(item => (
+                <a key={`${item.href}-${item.content}`} href={item.href} onClick={item.onClick || undefined}>{item.content}</a>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+      )}
+
+      {!minimal && mobileOpen && (
+        <nav className="rowad-mobile-menu" aria-label={text.mobileNav}>
+          <a href={siteUrl(routes.courses)}>{text.explore}</a>
+          <a href={siteUrl(routes.starting)}>{text.forWho}</a>
+          <a href={siteUrl(routes.journey)}>{text.journey}</a>
+          <a href={siteUrl(routes.about)}>{text.about}</a>
+          <div className="rowad-mobile-actions">
+            <a className="rowad-courses-button" href={coursesUrl}>{text.coursesButton}</a>
+            {authenticatedUser ? (
+              <>
+                <a className="rowad-login-button" href={dashboardUrl}>{authenticatedUser.username}</a>
+                {userMenu.flatMap(group => group.items).map(item => (
+                  <a key={`${item.href}-${item.content}`} href={item.href} onClick={item.onClick || undefined}>{item.content}</a>
+                ))}
+              </>
+            ) : <a className="rowad-login-button" href={config.LOGIN_URL}>{text.login}</a>}
+          </div>
+        </nav>
+      )}
+    </div>
+  );
+};
+
+RowadHeader.propTypes = {
+  authenticatedUser: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+  }),
+  config: PropTypes.shape({
+    LANGUAGE_PREFERENCE_COOKIE_NAME: PropTypes.string,
+    LMS_BASE_URL: PropTypes.string.isRequired,
+    LOGIN_URL: PropTypes.string.isRequired,
+  }).isRequired,
+  locale: PropTypes.string,
+  minimal: PropTypes.bool,
+  userMenu: PropTypes.arrayOf(PropTypes.shape({
+    heading: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      content: PropTypes.node.isRequired,
+      href: PropTypes.string.isRequired,
+      onClick: PropTypes.func,
+    })).isRequired,
+  })).isRequired,
+};
+
+RowadHeader.defaultProps = {
+  authenticatedUser: null,
+  locale: 'en',
+  minimal: false,
+};
+
+export default RowadHeader;

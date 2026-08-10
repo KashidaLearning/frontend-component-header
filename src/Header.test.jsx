@@ -20,7 +20,7 @@ const HeaderComponent = ({ width, contextValue }) => (
 );
 
 describe('<Header />', () => {
-  it('renders correctly for anonymous desktop', () => {
+  it('renders correctly for anonymous desktop', async () => {
     const contextValue = {
       authenticatedUser: null,
       config: {
@@ -29,17 +29,25 @@ describe('<Header />', () => {
         LOGIN_URL: process.env.LOGIN_URL,
         LOGOUT_URL: process.env.LOGOUT_URL,
         LOGO_URL: process.env.LOGO_URL,
+        ACCOUNT_PROFILE_URL: 'http://localhost:1995',
+        ACCOUNT_SETTINGS_URL: 'http://localhost:1997',
       },
     };
     const component = <HeaderComponent width={{ width: 1280 }} contextValue={contextValue} />;
 
     // FIXME: react-test-renderer is deprecated. Convert to @testing-library/react.
-    const wrapper = TestRenderer.create(component);
+    let wrapper;
+    await TestRenderer.act(async () => {
+      wrapper = TestRenderer.create(component);
+    });
 
     expect(wrapper.toJSON()).toMatchSnapshot();
+    await TestRenderer.act(async () => {
+      wrapper.unmount();
+    });
   });
 
-  it('renders correctly for authenticated desktop', () => {
+  it('renders correctly for authenticated desktop', async () => {
     const contextValue = {
       authenticatedUser: {
         userId: 'abc123',
@@ -53,17 +61,25 @@ describe('<Header />', () => {
         LOGIN_URL: process.env.LOGIN_URL,
         LOGOUT_URL: process.env.LOGOUT_URL,
         LOGO_URL: process.env.LOGO_URL,
+        ACCOUNT_PROFILE_URL: 'http://localhost:1995',
+        ACCOUNT_SETTINGS_URL: 'http://localhost:1997',
       },
     };
     const component = <HeaderComponent width={{ width: 1280 }} contextValue={contextValue} />;
 
     // FIXME: react-test-renderer is deprecated. Convert to @testing-library/react.
-    const wrapper = TestRenderer.create(component);
+    let wrapper;
+    await TestRenderer.act(async () => {
+      wrapper = TestRenderer.create(component);
+    });
 
     expect(wrapper.toJSON()).toMatchSnapshot();
+    await TestRenderer.act(async () => {
+      wrapper.unmount();
+    });
   });
 
-  it('renders correctly for anonymous mobile', () => {
+  it('renders correctly for anonymous mobile', async () => {
     const contextValue = {
       authenticatedUser: null,
       config: {
@@ -72,17 +88,25 @@ describe('<Header />', () => {
         LOGIN_URL: process.env.LOGIN_URL,
         LOGOUT_URL: process.env.LOGOUT_URL,
         LOGO_URL: process.env.LOGO_URL,
+        ACCOUNT_PROFILE_URL: 'http://localhost:1995',
+        ACCOUNT_SETTINGS_URL: 'http://localhost:1997',
       },
     };
     const component = <HeaderComponent width={{ width: 500 }} contextValue={contextValue} />;
 
     // FIXME: react-test-renderer is deprecated. Convert to @testing-library/react.
-    const wrapper = TestRenderer.create(component);
+    let wrapper;
+    await TestRenderer.act(async () => {
+      wrapper = TestRenderer.create(component);
+    });
 
     expect(wrapper.toJSON()).toMatchSnapshot();
+    await TestRenderer.act(async () => {
+      wrapper.unmount();
+    });
   });
 
-  it('renders correctly for authenticated mobile', () => {
+  it('renders correctly for authenticated mobile', async () => {
     const contextValue = {
       authenticatedUser: {
         userId: 'abc123',
@@ -96,12 +120,20 @@ describe('<Header />', () => {
         LOGIN_URL: process.env.LOGIN_URL,
         LOGOUT_URL: process.env.LOGOUT_URL,
         LOGO_URL: process.env.LOGO_URL,
+        ACCOUNT_PROFILE_URL: 'http://localhost:1995',
+        ACCOUNT_SETTINGS_URL: 'http://localhost:1997',
       },
     };
     const component = <HeaderComponent width={{ width: 500 }} contextValue={contextValue} />;
 
-    const wrapper = TestRenderer.create(component);
+    let wrapper;
+    await TestRenderer.act(async () => {
+      wrapper = TestRenderer.create(component);
+    });
 
     expect(wrapper.toJSON()).toMatchSnapshot();
+    await TestRenderer.act(async () => {
+      wrapper.unmount();
+    });
   });
 });
