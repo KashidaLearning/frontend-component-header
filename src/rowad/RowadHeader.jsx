@@ -1,11 +1,18 @@
 import React, {
-  useEffect, useRef, useState,
+  useContext, useEffect, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
+import { AppContext } from '@edx/frontend-platform/react';
+import { useIntl } from '@edx/frontend-platform/i18n';
+import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 
 const ROWAD_SITE = 'https://d1p65zue2xzvrm.cloudfront.net';
 const ENGLISH_FLAG = `${ROWAD_SITE}/_astro/english-usa.DqJ3CMLO.webp`;
 const ARABIC_FLAG = `${ROWAD_SITE}/_astro/arabic-ksa.Cr2p1ofg.webp`;
+
+const normaliseLanguage = value => (
+  String(value || '').toLowerCase().split('-')[0] === 'ar' ? 'ar' : 'en'
+);
 
 const TEXT = {
   en: {
@@ -161,13 +168,6 @@ const UserIcon = () => (
   </svg>
 );
 
-const SearchIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-    <circle cx="11" cy="11" r="8" />
-    <path d="m21 21-4.3-4.3" />
-  </svg>
-);
-
 const MenuIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
     <path d="M4 6h16M4 12h16M4 18h16" />
@@ -175,22 +175,42 @@ const MenuIcon = () => (
 );
 
 const RowadHeader = ({
-  authenticatedUser, config, locale, minimal, userMenu,
+  authenticatedUser: authenticatedUserProp,
+  config: configProp,
+  locale: localeProp,
+  minimal,
+  userMenu: userMenuProp,
 }) => {
-  const language = String(locale || 'en').toLowerCase().split('-')[0] === 'ar' ? 'ar' : 'en';
+  const appContext = useContext(AppContext) || {};
+  const intl = useIntl();
+  const authenticatedUser = authenticatedUserProp === undefined
+    ? appContext.authenticatedUser
+    : authenticatedUserProp;
+  const config = configProp || appContext.config || {};
+  const locale = localeProp || intl.locale || document.documentElement.lang || 'en';
+  const [language, setLanguage] = useState(
+    () => normaliseLanguage(locale),
+  );
+  const defaultUserMenu = authenticatedUser ? [{
+    heading: '',
+    items: [
+      { content: language === 'ar' ? 'لوحة التحكم' : 'Dashboard', href: `${String(config.LMS_BASE_URL || '').replace(/\/$/, '')}/dashboard` },
+      ...(config.ACCOUNT_PROFILE_URL ? [{ content: language === 'ar' ? 'الملف الشخصي' : 'Profile', href: `${config.ACCOUNT_PROFILE_URL}/u/${authenticatedUser.username}` }] : []),
+      ...(config.ACCOUNT_SETTINGS_URL ? [{ content: language === 'ar' ? 'الحساب' : 'Account', href: config.ACCOUNT_SETTINGS_URL }] : []),
+      ...(config.LOGOUT_URL ? [{ content: language === 'ar' ? 'تسجيل الخروج' : 'Sign Out', href: config.LOGOUT_URL }] : []),
+    ],
+  }] : [];
+  const userMenu = userMenuProp || defaultUserMenu;
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const text = TEXT[language];
   const routes = ROUTES[language];
   const rootRef = useRef(null);
   const hoverTimerRef = useRef(null);
-  const searchInputRef = useRef(null);
   const [openPanel, setOpenPanel] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [audience, setAudience] = useState(0);
-  const [query, setQuery] = useState('');
-
   const siteUrl = path => `${ROWAD_SITE}${path}`;
-  const lmsUrl = path => `${String(config.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
+  const lmsUrl = path => `${String(config?.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
   const coursesUrl = lmsUrl('/courses');
   const dashboardUrl = lmsUrl('/dashboard');
 
@@ -237,24 +257,32 @@ const RowadHeader = ({
   }, []);
 
   useEffect(() => {
-    if (openPanel === 'search') {
-      searchInputRef.current?.focus();
-    }
-  }, [openPanel]);
+    setLanguage(normaliseLanguage(locale));
+  }, [locale]);
 
-  const changeLanguage = (nextLanguage) => {
-    const cookieName = config.LANGUAGE_PREFERENCE_COOKIE_NAME || 'openedx-language-preference';
-    const secure = window.location.protocol === 'https:' ? ';secure' : '';
-    document.cookie = `${encodeURIComponent(cookieName)}=${encodeURIComponent(nextLanguage)};path=/;max-age=31536000;samesite=lax${secure}`;
+  const changeLanguage = async (nextLanguage) => {
+    const next = normaliseLanguage(nextLanguage);
+
+    if (next === language) {
+      setOpenPanel(null);
+      return;
+    }
+
+    const lmsBaseUrl = String(config?.LMS_BASE_URL || '')
+      .replace(/\/$/, '');
+
+    if (!lmsBaseUrl) {
+      return;
+    }
+
+    setOpenPanel(null);
+
+    await getAuthenticatedHttpClient().patch(
+      `${lmsBaseUrl}/lang_pref/update_language`,
+      { 'pref-lang': next },
+    );
+
     window.location.reload();
-  };
-
-  const submitSearch = (event) => {
-    event.preventDefault();
-    const value = query.trim();
-    if (value) {
-      window.location.assign(`${siteUrl(routes.search)}?q=${encodeURIComponent(value)}`);
-    }
   };
 
   const renderMegaLink = (href, label, external = false) => (
@@ -338,16 +366,11 @@ const RowadHeader = ({
                   <UserIcon /><span>{authenticatedUser.username}</span><ChevronIcon />
                 </button>
               ) : (
-                <a className="rowad-header-button rowad-login-button" href={config.LOGIN_URL}>
+                <a className="rowad-header-button rowad-login-button" href={config.LOGIN_URL || `${lmsUrl('/login')}?next=/courses`}>
                   <UserIcon /><span>{text.login}</span>
                 </a>
               )}
             </div>
-          )}
-          {!minimal && (
-            <button className="rowad-header-button rowad-search-button" type="button" onClick={() => togglePanel('search')} aria-label={text.openSearch} aria-expanded={openPanel === 'search'}>
-              <SearchIcon />
-            </button>
           )}
           <button className="rowad-header-button rowad-language-button" type="button" onClick={() => togglePanel('language')} aria-label={text.languages} aria-expanded={openPanel === 'language'}>
             <img src={language === 'ar' ? ARABIC_FLAG : ENGLISH_FLAG} alt="" />
@@ -424,16 +447,6 @@ const RowadHeader = ({
         </div>
       )}
 
-      {!minimal && openPanel === 'search' && (
-        <div className="rowad-popup rowad-search-popup">
-          <form className="rowad-search-form" onSubmit={submitSearch}>
-            <label className="sr-only" htmlFor="rowad-mfe-search">{text.searchLabel}</label>
-            <input ref={searchInputRef} id="rowad-mfe-search" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder={text.searchLabel} />
-            <button type="submit">{text.search}</button>
-          </form>
-        </div>
-      )}
-
       {openPanel === 'language' && (
         <div className="rowad-popup rowad-language-popup" role="menu">
           <div className="rowad-language-title">{text.languages}</div>
@@ -475,7 +488,7 @@ const RowadHeader = ({
                   <a key={`${item.href}-${item.content}`} href={item.href} onClick={item.onClick || undefined}>{item.content}</a>
                 ))}
               </>
-            ) : <a className="rowad-login-button" href={config.LOGIN_URL}>{text.login}</a>}
+            ) : <a className="rowad-login-button" href={config.LOGIN_URL || `${lmsUrl('/login')}?next=/courses`}>{text.login}</a>}
           </div>
         </nav>
       )}
@@ -489,9 +502,13 @@ RowadHeader.propTypes = {
   }),
   config: PropTypes.shape({
     LANGUAGE_PREFERENCE_COOKIE_NAME: PropTypes.string,
-    LMS_BASE_URL: PropTypes.string.isRequired,
-    LOGIN_URL: PropTypes.string.isRequired,
-  }).isRequired,
+    LANGUAGE_PREFERENCE_COOKIE_DOMAIN: PropTypes.string,
+    LMS_BASE_URL: PropTypes.string,
+    LOGIN_URL: PropTypes.string,
+    LOGOUT_URL: PropTypes.string,
+    ACCOUNT_PROFILE_URL: PropTypes.string,
+    ACCOUNT_SETTINGS_URL: PropTypes.string,
+  }),
   locale: PropTypes.string,
   minimal: PropTypes.bool,
   userMenu: PropTypes.arrayOf(PropTypes.shape({
@@ -501,13 +518,15 @@ RowadHeader.propTypes = {
       href: PropTypes.string.isRequired,
       onClick: PropTypes.func,
     })).isRequired,
-  })).isRequired,
+  })),
 };
 
 RowadHeader.defaultProps = {
-  authenticatedUser: null,
-  locale: 'en',
+  authenticatedUser: undefined,
+  config: undefined,
+  locale: undefined,
   minimal: false,
+  userMenu: undefined,
 };
 
 export default RowadHeader;

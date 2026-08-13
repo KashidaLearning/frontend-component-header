@@ -1,0 +1,492 @@
+/* Rowad Footer Styles */
+
+:root {
+  --primary-500: #18504d;
+  --secondary-500: #f08f62;
+  --footer-top: #1d9892;
+  --footer-middle: #136560;
+  --footer-bottom: #0a3230;
+  --header-width: min(1152px, calc(100% - 32px));
+  --font-noto-sans: "Rowad Noto Sans", sans-serif;
+  --font-noto-kufi-arabic: "Rowad Noto Kufi Arabic", sans-serif;
+  --font: var(--font-noto-sans);
+}
+
+/* Font Faces */
+@font-face {
+  font-family: "Rowad Noto Sans";
+  src: url("./fonts/rowad-noto-sans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Rowad Noto Kufi Arabic";
+  src: url("./fonts/rowad-noto-kufi-arabic.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Footer Styles */
+#rowadThemeFooter {
+  * {
+    box-sizing: border-box;
+  }
+
+  font-family: var(--font);
+  position: relative;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 1.5;
+  background: linear-gradient(180deg, var(--footer-top) 0%, var(--footer-middle) 50%, var(--footer-bottom) 100%);
+  color: #fff;
+  padding: 64px 32px 48px;
+  text-align: left;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background-image: url('https://d1p65zue2xzvrm.cloudfront.net/images/star-pattern.webp');
+    background-repeat: repeat;
+    background-size: auto;
+    opacity: .1;
+    -webkit-mask-image: radial-gradient(circle at top left, rgba(0, 0, 0, .60) 40%, rgba(0, 0, 0, .05) 100%);
+    mask-image: radial-gradient(circle at top left, rgba(0, 0, 0, .60) 40%, rgba(0, 0, 0, .05) 100%);
+    pointer-events: none;
+  }
+
+  &[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+    font-family: var(--font-noto-kufi-arabic), var(--font-noto-sans), sans-serif !important;
+  }
+
+  &[dir="rtl"],
+  &[dir="rtl"] * {
+    font-family: var(--font-noto-kufi-arabic), var(--font-noto-sans), sans-serif !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: #fff;
+    }
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img,
+  svg {
+    display: block;
+  }
+}
+
+.site-footer {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .footer-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* Newsletter Card */
+  .newsletter-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    margin-bottom: 64px;
+    padding: 48px;
+    color: #000;
+    background: #fff;
+    border-radius: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .25);
+
+    .eyebrow {
+      display: flex;
+      margin: 0;
+      align-items: center;
+      gap: 14px;
+      color: var(--secondary-500) !important;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 16px;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+
+      &::before { width: 30px; height: 1px; content: ''; background: rgba(240, 143, 98, .55); }
+    }
+
+    .newsletter-title {
+      margin: 20px 0 0;
+      color: #000;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .newsletter-subtitle {
+      margin: 0;
+      color: #9ca3af;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .newsletter-content {
+      min-width: 0;
+    }
+
+    .newsletter-form {
+      display: flex;
+      position: relative;
+      width: 448px;
+      max-width: 100%;
+      height: 48px;
+      flex: 0 0 448px;
+
+      input {
+        width: 100%;
+        height: 48px;
+        padding: 0 130px 0 16px;
+        color: #5b6a7e;
+        border: 1px solid #cfd4db;
+        border-radius: 12px;
+        outline: none;
+        background: #f0f1f3;
+        box-shadow: none;
+        font-size: 14px;
+
+        &::placeholder {
+          color: #97a2b1;
+          font-style: normal;
+          opacity: 1;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #648a88;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+
+      button {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 96px;
+        height: 40px;
+        padding: 0 13px;
+        background: var(--primary-500);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-weight: 400;
+        white-space: nowrap;
+        transition: background 0.2s ease;
+
+        &:hover:not(:disabled) {
+          background: var(--primary-500);
+          opacity: .8;
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .newsletter-status {
+      position: absolute;
+      top: 52px;
+      left: 2px;
+      font-size: 12px;
+      margin: 0;
+      color: var(--primary-500);
+    }
+  }
+
+  /* Brand & Social */
+  .footer-brand-social {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 88px;
+    margin-bottom: 48px;
+    gap: 24px;
+
+    .footer-brands {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-rowad-logo {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+    }
+
+    .footer-sedco-logo {
+      width: 113px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .social-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+        color: rgba(255, 255, 255, .8);
+        background: transparent;
+        border-radius: 24px;
+        transition: background 0.2s ease;
+
+        &:hover {
+          color: #fff;
+          background: rgba(255, 255, 255, .1);
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+
+  /* Footer Divider */
+  .footer-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, .1);
+    margin: 0 0 40px;
+  }
+
+  /* Footer Links */
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 40px 24px;
+  }
+
+  .footer-column {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 16px;
+
+    h3,
+    h3.footer-column-title {
+      margin: 0;
+      color: #fff !important;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li { margin: 0; padding: 0; }
+
+    a,
+    a:link,
+    a:visited {
+      color: rgba(255, 255, 255, .6) !important;
+      font-size: 14px;
+      font-weight: 400;
+      border: 0 !important;
+      outline: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      opacity: 1 !important;
+      line-height: 1.375;
+      transition: color 0.15s ease;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: #fff !important;
+        font-family: var(--font) !important;
+        font-weight: 400 !important;
+        text-decoration: none !important;
+        border: 0 !important;
+        outline: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+      }
+    }
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 1023px) {
+  .site-footer {
+    padding-right: 32px;
+    padding-left: 32px;
+
+    .newsletter-card {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 32px;
+
+      .newsletter-form {
+        display: flex;
+        width: 100%;
+        height: auto;
+        flex: 0 0 auto;
+        flex-direction: column;
+        gap: 8px;
+
+        input {
+          padding: 0 16px;
+        }
+
+        button {
+          position: static;
+          width: 100%;
+          height: 48px;
+        }
+      }
+
+      .newsletter-status {
+        position: static;
+        min-height: 18px;
+        margin-top: 0;
+      }
+    }
+
+    .footer-links {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (max-width: 639px) {
+  .site-footer {
+    padding: 64px 16px 48px;
+
+    .newsletter-card {
+      min-height: 0;
+      margin-bottom: 48px;
+      padding: 40px 32px;
+      gap: 32px;
+      border-radius: 32px;
+
+      .newsletter-title,
+      .newsletter-subtitle {
+        font-size: 36px;
+      }
+    }
+
+    .footer-brand-social {
+      height: 64px;
+      margin-bottom: 48px;
+      gap: 12px;
+
+      .footer-brands {
+        gap: 8px;
+      }
+
+      .footer-rowad-logo {
+        width: auto;
+        height: 64px;
+      }
+
+      .footer-sedco-logo {
+        width: auto;
+        height: 24px;
+      }
+
+      .social-links {
+        gap: 4px;
+
+        a {
+          width: 40px;
+          height: 40px;
+          padding: 12px;
+
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+        }
+      }
+    }
+
+    .footer-links {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 40px 24px;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .site-footer {
+    .newsletter-card {
+      padding: 34px 24px;
+    }
+
+    .footer-brand-social {
+      gap: 6px;
+
+      .footer-rowad-logo {
+        height: 58px;
+      }
+
+      .footer-sedco-logo {
+        height: 21px;
+      }
+
+      .social-links a {
+        width: 34px;
+        height: 40px;
+      }
+    }
+  }
+}
