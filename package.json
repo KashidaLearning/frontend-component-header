@@ -15,7 +15,8 @@
     "start": "fedx-scripts webpack-dev-server --progress",
     "test": "fedx-scripts jest --coverage",
     "test:dev": "fedx-scripts jest --watchAll",
-    "types": "tsc --noEmit"
+    "types": "tsc --noEmit",
+    "prepare": "npm run build"
   },
   "files": [
     "/dist"
