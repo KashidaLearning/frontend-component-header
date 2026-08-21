@@ -363,7 +363,7 @@ const RowadHeader = ({
               </a>
               {authenticatedUser ? (
                 <button className="rowad-header-button rowad-account-button" type="button" onClick={() => togglePanel('account')} aria-expanded={openPanel === 'account'}>
-                  <UserIcon /><span>{authenticatedUser.username}</span><ChevronIcon />
+                  <UserIcon /><span className="rowad-account-username" title={authenticatedUser.username}>{authenticatedUser.username}</span><ChevronIcon />
                 </button>
               ) : (
                 <a className="rowad-header-button rowad-login-button" href={config.LOGIN_URL || `${lmsUrl('/login')}?next=/courses`}>

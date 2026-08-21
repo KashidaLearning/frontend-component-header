@@ -882,3 +882,36 @@
     animation-duration: 0.01ms;
   }
 }
+
+/* ROWAD ACCOUNT USERNAME ELLIPSIS */
+.rowad-header-actions,
+.rowad-desktop-actions {
+  min-width: 0;
+}
+
+.rowad-desktop-actions {
+  flex: 0 1 auto;
+}
+
+.rowad-courses-button,
+.rowad-language-button {
+  flex: 0 0 auto;
+}
+
+.rowad-account-button {
+  flex: 0 1 220px;
+  min-width: 0;
+  max-width: 220px;
+}
+
+.rowad-account-button > svg {
+  flex: 0 0 auto;
+}
+
+.rowad-account-username {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
