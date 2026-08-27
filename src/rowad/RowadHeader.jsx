@@ -1,5 +1,5 @@
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext, useEffect, useMemo, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import { AppContext } from '@edx/frontend-platform/react';
@@ -10,9 +10,93 @@ const ROWAD_SITE = 'https://d1p65zue2xzvrm.cloudfront.net';
 const ENGLISH_FLAG = `${ROWAD_SITE}/_astro/english-usa.DqJ3CMLO.webp`;
 const ARABIC_FLAG = `${ROWAD_SITE}/_astro/arabic-ksa.Cr2p1ofg.webp`;
 
+const DEFAULT_LANGUAGE_COOKIE_NAME = 'openedx-language-preference';
+const LANGUAGE_EVENT = 'rowad-language-change';
+const LANGUAGE_STORAGE_KEY = 'rowad-language';
+const LANGUAGE_COOKIE_MAX_AGE = 14 * 24 * 60 * 60;
+
 const normaliseLanguage = value => (
   String(value || '').toLowerCase().split('-')[0] === 'ar' ? 'ar' : 'en'
 );
+
+const readCookie = (name) => {
+  if (typeof document === 'undefined') {
+    return '';
+  }
+
+  const encodedName = `${encodeURIComponent(name)}=`;
+  const cookie = document.cookie
+    .split('; ')
+    .find(value => value.startsWith(encodedName));
+
+  return cookie ? decodeURIComponent(cookie.slice(encodedName.length)) : '';
+};
+
+const readStoredLanguage = () => {
+  try {
+    return window.localStorage.getItem(LANGUAGE_STORAGE_KEY) || '';
+  } catch (error) {
+    return '';
+  }
+};
+
+const getLanguageCookieName = config => (
+  config?.LANGUAGE_PREFERENCE_COOKIE_NAME
+    || DEFAULT_LANGUAGE_COOKIE_NAME
+);
+
+const getInitialLanguage = (locale, config) => normaliseLanguage(
+  readCookie(getLanguageCookieName(config))
+    || readStoredLanguage()
+    || locale
+    || document.documentElement.lang,
+);
+
+const getLanguageCookieDomain = (config) => {
+  if (config?.LANGUAGE_PREFERENCE_COOKIE_DOMAIN) {
+    return config.LANGUAGE_PREFERENCE_COOKIE_DOMAIN;
+  }
+
+  try {
+    const { hostname } = new URL(config?.LMS_BASE_URL);
+    return hostname.includes('.') ? hostname : '';
+  } catch (error) {
+    return '';
+  }
+};
+
+const persistLanguage = (language, config) => {
+  const name = getLanguageCookieName(config);
+  const domain = getLanguageCookieDomain(config);
+  const secure = window.location.protocol === 'https:';
+
+  const attributes = [
+    `${encodeURIComponent(name)}=${encodeURIComponent(language)}`,
+    'path=/',
+    `max-age=${LANGUAGE_COOKIE_MAX_AGE}`,
+    `samesite=${secure ? 'None' : 'Lax'}`,
+  ];
+
+  if (domain) {
+    attributes.push(`domain=${domain}`);
+  }
+
+  if (secure) {
+    attributes.push('Secure');
+  }
+
+  document.cookie = attributes.join('; ');
+
+  try {
+    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+  } catch (error) {
+    // The shared cookie remains available when storage is unavailable.
+  }
+
+  window.dispatchEvent(
+    new CustomEvent(LANGUAGE_EVENT, { detail: language }),
+  );
+};
 
 const TEXT = {
   en: {
@@ -186,10 +270,13 @@ const RowadHeader = ({
   const authenticatedUser = authenticatedUserProp === undefined
     ? appContext.authenticatedUser
     : authenticatedUserProp;
-  const config = configProp || appContext.config || {};
+  const config = useMemo(
+    () => configProp || appContext.config || {},
+    [appContext.config, configProp],
+  );
   const locale = localeProp || intl.locale || document.documentElement.lang || 'en';
   const [language, setLanguage] = useState(
-    () => normaliseLanguage(locale),
+    () => getInitialLanguage(locale, config),
   );
   const defaultUserMenu = authenticatedUser ? [{
     heading: '',
@@ -257,8 +344,25 @@ const RowadHeader = ({
   }, []);
 
   useEffect(() => {
-    setLanguage(normaliseLanguage(locale));
-  }, [locale]);
+    setLanguage(getInitialLanguage(locale, config));
+  }, [config, locale]);
+
+  useEffect(() => {
+    const syncStoredLanguage = (event) => {
+      if (
+        event.key === LANGUAGE_STORAGE_KEY
+        && event.newValue
+      ) {
+        setLanguage(normaliseLanguage(event.newValue));
+      }
+    };
+
+    window.addEventListener('storage', syncStoredLanguage);
+
+    return () => {
+      window.removeEventListener('storage', syncStoredLanguage);
+    };
+  }, []);
 
   const changeLanguage = async (nextLanguage) => {
     const next = normaliseLanguage(nextLanguage);
@@ -271,18 +375,23 @@ const RowadHeader = ({
     const lmsBaseUrl = String(config?.LMS_BASE_URL || '')
       .replace(/\/$/, '');
 
-    if (!lmsBaseUrl) {
-      return;
-    }
-
     setOpenPanel(null);
+    setLanguage(next);
+    persistLanguage(next, config);
 
-    await getAuthenticatedHttpClient().patch(
-      `${lmsBaseUrl}/lang_pref/update_language`,
-      { 'pref-lang': next },
-    );
-
-    window.location.reload();
+    try {
+      if (lmsBaseUrl) {
+        await getAuthenticatedHttpClient().patch(
+          `${lmsBaseUrl}/lang_pref/update_language`,
+          { 'pref-lang': next },
+          { timeout: 5000 },
+        );
+      }
+    } catch {
+      // The client-side shared cookie still applies the selection.
+    } finally {
+      window.location.reload();
+    }
   };
 
   const renderMegaLink = (href, label, external = false) => (
