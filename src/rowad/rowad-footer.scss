@@ -58,6 +58,7 @@
     pointer-events: none;
   }
 
+  /*rtl:ignore*/
   &[dir="rtl"] {
     direction: rtl;
     text-align: right;
