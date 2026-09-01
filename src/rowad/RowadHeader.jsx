@@ -360,6 +360,7 @@ const RowadHeader = ({
   const hoverTimerRef = useRef(null);
   const [openPanel, setOpenPanel] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSection, setMobileSection] = useState(null);
   const [audience, setAudience] = useState(0);
   const siteUrl = path => `${ROWAD_SITE}${path}`;
   const lmsUrl = path => `${String(config?.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
@@ -369,10 +370,12 @@ const RowadHeader = ({
   const closeAll = () => {
     setOpenPanel(null);
     setMobileOpen(false);
+    setMobileSection(null);
   };
 
   const togglePanel = (panel) => {
     setMobileOpen(false);
+    setMobileSection(null);
     setOpenPanel(current => (current === panel ? null : panel));
   };
 
@@ -380,6 +383,7 @@ const RowadHeader = ({
     window.clearTimeout(hoverTimerRef.current);
     setOpenPanel(panel);
     setMobileOpen(false);
+    setMobileSection(null);
   };
 
   const scheduleMegaMenuClose = () => {
@@ -593,7 +597,7 @@ const RowadHeader = ({
             <img src={language === 'ar' ? ARABIC_FLAG : ENGLISH_FLAG} alt="" />
           </button>
           {!minimal && (
-            <button className="rowad-header-button rowad-menu-button" type="button" onClick={() => { setOpenPanel(null); setMobileOpen(value => !value); }} aria-label={mobileOpen ? text.closeMenu : text.openMenu} aria-expanded={mobileOpen}>
+            <button className="rowad-header-button rowad-menu-button" type="button" onClick={() => { setOpenPanel(null); setMobileSection(null); setMobileOpen(value => !value); }} aria-label={mobileOpen ? text.closeMenu : text.openMenu} aria-expanded={mobileOpen}>
               <MenuIcon />
             </button>
           )}
@@ -692,8 +696,88 @@ const RowadHeader = ({
 
       {!minimal && mobileOpen && (
         <nav className="rowad-mobile-menu" aria-label={text.mobileNav}>
-          <a href={siteUrl(routes.courses)}>{text.explore}</a>
-          <a href={siteUrl(routes.starting)}>{text.forWho}</a>
+          <div className="rowad-mobile-accordion">
+            <button
+              className="rowad-mobile-accordion-trigger"
+              type="button"
+              aria-expanded={mobileSection === 'explore'}
+              onClick={() => setMobileSection(
+                current => (current === 'explore' ? null : 'explore')
+              )}
+            >
+              <span>{text.explore}</span>
+              <ChevronIcon />
+            </button>
+
+            {mobileSection === 'explore' && (
+              <div className="rowad-mobile-accordion-panel">
+                <section className="rowad-mobile-submenu-section">
+                  <h3>{text.learn}</h3>
+                  <a href={siteUrl(routes.courses)}>{text.courses}</a>
+                  <a href={siteUrl(routes.podcasts)}>{text.podcasts}</a>
+                  <a href={siteUrl(routes.blogs)}>{text.blogs}</a>
+                </section>
+
+                <section className="rowad-mobile-submenu-section">
+                  <h3>{text.connect}</h3>
+                  <a href="https://mentors.com/" target="_blank" rel="noopener noreferrer">{text.mentorship}</a>
+                  <a href="https://consulting.com/" target="_blank" rel="noopener noreferrer">{text.consultation}</a>
+                  <a href={siteUrl(routes.partnerships)}>{text.partnerships}</a>
+                  <a href={siteUrl(routes.initiatives)}>{text.initiatives}</a>
+                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">{text.linkedin}</a>
+                  <a href="https://bookclubs.com/" target="_blank" rel="noopener noreferrer">{text.bookClub}</a>
+                </section>
+
+                <section className="rowad-mobile-submenu-section">
+                  <h3>{text.find}</h3>
+                  <a href={siteUrl(routes.glossary)}>{text.glossary}</a>
+                  <a href={siteUrl(routes.tools)}>{text.tools}</a>
+                  <a href={siteUrl(routes.funding)}>{text.funding}</a>
+                  <a href={siteUrl(routes.experts)}>{text.experts}</a>
+                  <a href="https://www.ycombinator.com/" target="_blank" rel="noopener noreferrer">{text.accelerators}</a>
+                  <a href={siteUrl(routes.events)}>{text.events}</a>
+                </section>
+
+                <section className="rowad-mobile-submenu-section">
+                  <h3>{text.collaborate}</h3>
+                  <a href={siteUrl(routes.startPartnership)}>{text.startPartnership}</a>
+                  <a href={siteUrl(routes.mentor)}>{text.mentor}</a>
+                  <a href={siteUrl(routes.ambassador)}>{text.ambassador}</a>
+                  <a href={siteUrl(routes.special)}>{text.special}</a>
+                </section>
+
+                <a
+                  className="rowad-mobile-library-link"
+                  href={siteUrl(routes.library)}
+                >
+                  <strong>{text.library}</strong>
+                  <small>{text.libraryDesc}</small>
+                </a>
+              </div>
+            )}
+          </div>
+
+          <div className="rowad-mobile-accordion">
+            <button
+              className="rowad-mobile-accordion-trigger"
+              type="button"
+              aria-expanded={mobileSection === 'forWho'}
+              onClick={() => setMobileSection(
+                current => (current === 'forWho' ? null : 'forWho')
+              )}
+            >
+              <span>{text.forWho}</span>
+              <ChevronIcon />
+            </button>
+
+            {mobileSection === 'forWho' && (
+              <div className="rowad-mobile-accordion-panel">
+                <a href={siteUrl(routes.starting)}>{text.starting}</a>
+                <a href={siteUrl(routes.running)}>{text.running}</a>
+                <a href={siteUrl(routes.growing)}>{text.growing}</a>
+              </div>
+            )}
+          </div>
           <a href={siteUrl(routes.journey)}>{text.journey}</a>
           <a href={siteUrl(routes.about)}>{text.about}</a>
           <div className="rowad-mobile-actions">

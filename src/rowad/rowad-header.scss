@@ -769,6 +769,97 @@
   }
 }
 
+
+.rowad-mobile-accordion {
+  border-bottom: 1px solid rgba(255, 255, 255, .10);
+}
+
+.rowad-mobile-accordion-trigger {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: 14px;
+  background: transparent !important;
+  box-shadow: none !important;
+  font: inherit !important;
+  text-align: start;
+  text-transform: none;
+
+  &:hover,
+  &:focus,
+  &[aria-expanded='true'] {
+    color: #fff !important;
+    background: rgba(255, 255, 255, .08) !important;
+    outline: 0;
+  }
+
+  > .rowad-chevron {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+  }
+}
+
+.rowad-mobile-accordion-panel {
+  padding: 6px 10px 14px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, .16);
+
+  a {
+    display: flex;
+    min-height: 40px;
+    padding: 9px 12px;
+    align-items: center;
+    color: rgba(255, 255, 255, .82) !important;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: start;
+
+    &:hover,
+    &:focus {
+      color: #fff !important;
+      background: rgba(255, 255, 255, .08) !important;
+    }
+  }
+}
+
+.rowad-mobile-submenu-section + .rowad-mobile-submenu-section {
+  margin-top: 12px;
+}
+
+.rowad-mobile-submenu-section h3 {
+  margin: 0;
+  padding: 8px 12px 4px;
+  color: var(--rowad-secondary);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: start;
+}
+
+.rowad-mobile-library-link {
+  display: block !important;
+  margin-top: 12px;
+  border: 1px solid rgba(255, 255, 255, .12);
+
+  strong,
+  small {
+    display: block;
+  }
+
+  small {
+    color: rgba(255, 255, 255, .58);
+    font-size: 12px;
+  }
+}
+
 .rowad-mobile-actions {
   display: grid;
   margin-top: 12px;
@@ -779,6 +870,14 @@
   .rowad-courses-button {
     color: var(--rowad-primary) !important;
   }
+}
+
+.rowad-mobile-menu .rowad-mobile-actions > .rowad-courses-button,
+.rowad-mobile-menu .rowad-mobile-actions > .rowad-courses-button:hover,
+.rowad-mobile-menu .rowad-mobile-actions > .rowad-courses-button:focus {
+  color: var(--rowad-primary) !important;
+  background: #fff !important;
+  text-align: center;
 }
 
 @media (max-width: 1100px) {
@@ -937,4 +1036,29 @@ html.rowad-language-entering body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+
+/* ROWAD SMALL VIEWPORT CONTAINMENT */
+@media (max-width: 480px) {
+  .rowad-main-header {
+    left: 50vw !important;
+    right: auto !important;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    transform: translateX(-50%) !important;
+  }
+
+  .rowad-header-main,
+  .rowad-header-main-inner,
+  .rowad-header-actions {
+    min-width: 0;
+  }
+
+  .rowad-mobile-menu {
+    left: 16px !important;
+    right: auto !important;
+    width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 32px) !important;
+  }
 }
