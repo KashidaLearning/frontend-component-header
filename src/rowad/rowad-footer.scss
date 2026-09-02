@@ -58,13 +58,6 @@
     pointer-events: none;
   }
 
-  /*rtl:ignore*/
-  &[dir="rtl"] {
-    direction: rtl;
-    text-align: right;
-    font-family: var(--font-noto-kufi-arabic), var(--font-noto-sans), sans-serif !important;
-  }
-
   &[dir="rtl"],
   &[dir="rtl"] * {
     font-family: var(--font-noto-kufi-arabic), var(--font-noto-sans), sans-serif !important;
