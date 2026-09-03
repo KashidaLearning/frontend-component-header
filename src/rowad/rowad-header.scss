@@ -346,6 +346,7 @@
   border: 1px solid rgba(255, 255, 255, .30) !important;
   background: rgba(0, 0, 0, .30) !important;
   backdrop-filter: blur(16px);
+  text-align: center !important;
 }
 
 .rowad-search-button,
@@ -745,7 +746,8 @@
   z-index: 1029;
   top: 100px;
   inset-inline: 16px;
-  display: none;
+  display: flex;
+  flex-direction: column;
   max-height: calc(100vh - 116px);
   padding: 16px;
   overflow-y: auto;
@@ -861,14 +863,24 @@
 }
 
 .rowad-mobile-actions {
-  display: grid;
-  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
   padding-top: 12px;
   gap: 8px;
   border-top: 1px solid rgba(255, 255, 255, .12);
 
+  a:not(.rowad-courses-button):not(.rowad-login-button) {
+    order: 0;
+  }
+
   .rowad-courses-button {
+    order: 1;
     color: var(--rowad-primary) !important;
+  }
+  
+  .rowad-login-button {
+    order: 2;
   }
 }
 
@@ -1024,6 +1036,7 @@ html.rowad-language-entering body {
   flex: 0 1 220px;
   min-width: 0;
   max-width: 220px;
+  order: 998;
 }
 
 .rowad-account-button > svg {
@@ -1036,6 +1049,7 @@ html.rowad-language-entering body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: center;
 }
 
 

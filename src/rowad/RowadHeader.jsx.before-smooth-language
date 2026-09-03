@@ -1,167 +1,18 @@
 import React, {
-  useContext, useEffect, useLayoutEffect, useMemo, useRef, useState,
+  useContext, useEffect, useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import { AppContext } from '@edx/frontend-platform/react';
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 
 const ROWAD_SITE = 'https://d1p65zue2xzvrm.cloudfront.net';
 const ENGLISH_FLAG = `${ROWAD_SITE}/_astro/english-usa.DqJ3CMLO.webp`;
 const ARABIC_FLAG = `${ROWAD_SITE}/_astro/arabic-ksa.Cr2p1ofg.webp`;
-
-const DEFAULT_LANGUAGE_COOKIE_NAME = 'openedx-language-preference';
 const LANGUAGE_EVENT = 'rowad-language-change';
-const LANGUAGE_STORAGE_KEY = 'rowad-language';
-const LANGUAGE_COOKIE_MAX_AGE = 14 * 24 * 60 * 60;
-const LANGUAGE_TRANSITION_STORAGE_KEY = 'rowad-language-transition';
-const LANGUAGE_TRANSITION_OUT_DURATION = 140;
-const LANGUAGE_TRANSITION_IN_DURATION = 180;
 
 const normaliseLanguage = value => (
   String(value || '').toLowerCase().split('-')[0] === 'ar' ? 'ar' : 'en'
 );
-
-const readCookie = (name) => {
-  if (typeof document === 'undefined') {
-    return '';
-  }
-
-  const encodedName = `${encodeURIComponent(name)}=`;
-  const cookie = document.cookie
-    .split('; ')
-    .find(value => value.startsWith(encodedName));
-
-  return cookie ? decodeURIComponent(cookie.slice(encodedName.length)) : '';
-};
-
-const getLanguageCookieName = config => (
-  config?.LANGUAGE_PREFERENCE_COOKIE_NAME
-    || DEFAULT_LANGUAGE_COOKIE_NAME
-);
-
-const getInitialLanguage = (locale, config) => normaliseLanguage(
-  readCookie(getLanguageCookieName(config))
-    || locale
-    || document.documentElement.lang,
-);
-
-const getSharedCookieDomain = (firstHostname, secondHostname) => {
-  const firstParts = String(firstHostname || '').split('.').reverse();
-  const secondParts = String(secondHostname || '').split('.').reverse();
-  const sharedParts = [];
-  let index = 0;
-
-  while (
-    index < firstParts.length
-    && index < secondParts.length
-    && firstParts[index] === secondParts[index]
-  ) {
-    sharedParts.push(firstParts[index]);
-    index += 1;
-  }
-
-  return sharedParts.length >= 2
-    ? sharedParts.reverse().join('.')
-    : '';
-};
-
-const getLanguageCookieDomain = (config) => {
-  if (config?.LANGUAGE_PREFERENCE_COOKIE_DOMAIN) {
-    return config.LANGUAGE_PREFERENCE_COOKIE_DOMAIN.replace(/^\./, '');
-  }
-
-  try {
-    const { hostname: lmsHostname } = new URL(config?.LMS_BASE_URL);
-
-    return getSharedCookieDomain(
-      window.location.hostname,
-      lmsHostname,
-    );
-  } catch (error) {
-    return '';
-  }
-};
-
-const removeLanguageCookie = (name, domain, secure) => {
-  const attributes = [
-    `${encodeURIComponent(name)}=`,
-    'path=/',
-    'max-age=0',
-    `samesite=${secure ? 'None' : 'Lax'}`,
-  ];
-
-  if (domain) {
-    attributes.push(`domain=${domain}`);
-  }
-
-  if (secure) {
-    attributes.push('Secure');
-  }
-
-  document.cookie = attributes.join('; ');
-};
-
-const persistLanguage = (language, config) => {
-  const name = getLanguageCookieName(config);
-  const domain = getLanguageCookieDomain(config);
-  const secure = window.location.protocol === 'https:';
-
-  removeLanguageCookie(name, '', secure);
-
-  if (domain) {
-    removeLanguageCookie(name, domain, secure);
-  }
-
-  const attributes = [
-    `${encodeURIComponent(name)}=${encodeURIComponent(language)}`,
-    'path=/',
-    `max-age=${LANGUAGE_COOKIE_MAX_AGE}`,
-    `samesite=${secure ? 'None' : 'Lax'}`,
-  ];
-
-  if (domain) {
-    attributes.push(`domain=${domain}`);
-  }
-
-  if (secure) {
-    attributes.push('Secure');
-  }
-
-  document.cookie = attributes.join('; ');
-
-  try {
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-  } catch (error) {
-    // The shared cookie remains available when storage is unavailable.
-  }
-
-  window.dispatchEvent(
-    new CustomEvent(LANGUAGE_EVENT, { detail: language }),
-  );
-};
-
-const startLanguageTransition = () => {
-  try {
-    window.sessionStorage.setItem(
-      LANGUAGE_TRANSITION_STORAGE_KEY,
-      'true',
-    );
-  } catch (error) {
-    // Continue when session storage is unavailable.
-  }
-
-  document.documentElement.classList.remove(
-    'rowad-language-entering',
-  );
-  document.documentElement.classList.add(
-    'rowad-language-leaving',
-  );
-
-  return new Promise(resolve => {
-    window.setTimeout(resolve, LANGUAGE_TRANSITION_OUT_DURATION);
-  });
-};
 
 const TEXT = {
   en: {
@@ -317,6 +168,7 @@ const UserIcon = () => (
   </svg>
 );
 
+
 const MenuIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
     <path d="M4 6h16M4 12h16M4 18h16" />
@@ -335,14 +187,11 @@ const RowadHeader = ({
   const authenticatedUser = authenticatedUserProp === undefined
     ? appContext.authenticatedUser
     : authenticatedUserProp;
-  const config = useMemo(
-    () => configProp || appContext.config || {},
-    [appContext.config, configProp],
-  );
+  const config = configProp || appContext.config || {};
   const locale = localeProp || intl.locale || document.documentElement.lang || 'en';
-  const [language, setLanguage] = useState(
-    () => getInitialLanguage(locale, config),
-  );
+  const [language, setLanguage] = useState(() => normaliseLanguage(
+    window.localStorage.getItem('rowad-language') || locale,
+  ));
   const defaultUserMenu = authenticatedUser ? [{
     heading: '',
     items: [
@@ -360,7 +209,6 @@ const RowadHeader = ({
   const hoverTimerRef = useRef(null);
   const [openPanel, setOpenPanel] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mobileSection, setMobileSection] = useState(null);
   const [audience, setAudience] = useState(0);
   const siteUrl = path => `${ROWAD_SITE}${path}`;
   const lmsUrl = path => `${String(config?.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
@@ -370,12 +218,10 @@ const RowadHeader = ({
   const closeAll = () => {
     setOpenPanel(null);
     setMobileOpen(false);
-    setMobileSection(null);
   };
 
   const togglePanel = (panel) => {
     setMobileOpen(false);
-    setMobileSection(null);
     setOpenPanel(current => (current === panel ? null : panel));
   };
 
@@ -383,7 +229,6 @@ const RowadHeader = ({
     window.clearTimeout(hoverTimerRef.current);
     setOpenPanel(panel);
     setMobileOpen(false);
-    setMobileSection(null);
   };
 
   const scheduleMegaMenuClose = () => {
@@ -413,100 +258,23 @@ const RowadHeader = ({
   }, []);
 
   useEffect(() => {
-    setLanguage(getInitialLanguage(locale, config));
-  }, [config, locale]);
-
-  useLayoutEffect(() => {
-    let transitionTimer;
-
-    try {
-      const shouldAnimate = window.sessionStorage.getItem(
-        LANGUAGE_TRANSITION_STORAGE_KEY,
-      ) === 'true';
-
-      if (shouldAnimate) {
-        window.sessionStorage.removeItem(
-          LANGUAGE_TRANSITION_STORAGE_KEY,
-        );
-
-        document.documentElement.classList.add(
-          'rowad-language-entering',
-        );
-
-        transitionTimer = window.setTimeout(() => {
-          document.documentElement.classList.remove(
-            'rowad-language-entering',
-          );
-        }, LANGUAGE_TRANSITION_IN_DURATION);
-      }
-    } catch (error) {
-      // Continue when session storage is unavailable.
-    }
-
-    return () => {
-      if (transitionTimer) {
-        window.clearTimeout(transitionTimer);
-      }
-
-      document.documentElement.classList.remove(
-        'rowad-language-entering',
-      );
-    };
+    const syncLanguage = event => setLanguage(normaliseLanguage(event.detail));
+    window.addEventListener(LANGUAGE_EVENT, syncLanguage);
+    return () => window.removeEventListener(LANGUAGE_EVENT, syncLanguage);
   }, []);
-
-  useEffect(() => {
-    document.documentElement.lang = language;
-    document.documentElement.dir = direction;
-  }, [direction, language]);
-
-  useEffect(() => {
-    const syncStoredLanguage = (event) => {
-      if (
-        event.key === LANGUAGE_STORAGE_KEY
-        && event.newValue
-      ) {
-        setLanguage(normaliseLanguage(event.newValue));
-      }
-    };
-
-    window.addEventListener('storage', syncStoredLanguage);
-
-    return () => {
-      window.removeEventListener('storage', syncStoredLanguage);
-    };
-  }, []);
-
-  const changeLanguage = async (nextLanguage) => {
+const changeLanguage = (nextLanguage) => {
     const next = normaliseLanguage(nextLanguage);
-
-    if (next === language) {
-      setOpenPanel(null);
-      return;
-    }
-
-    const lmsBaseUrl = String(config?.LMS_BASE_URL || '')
-      .replace(/\/$/, '');
-
+    const cookieName = config.LANGUAGE_PREFERENCE_COOKIE_NAME || 'openedx-language-preference';
+    const cookieDomain = config.LANGUAGE_PREFERENCE_COOKIE_DOMAIN;
+    const secure = window.location.protocol === 'https:' ? ';secure' : '';
+    const domain = cookieDomain ? `;domain=${cookieDomain}` : '';
+    document.cookie = `${encodeURIComponent(cookieName)}=${encodeURIComponent(next)};path=/;max-age=31536000${domain};samesite=lax${secure}`;
+    window.localStorage.setItem('rowad-language', next);
+    setLanguage(next);
     setOpenPanel(null);
-    persistLanguage(next, config);
-
-    try {
-      if (lmsBaseUrl) {
-        await getAuthenticatedHttpClient().patch(
-          `${lmsBaseUrl}/lang_pref/update_language`,
-          { 'pref-lang': next },
-          { timeout: 5000 },
-        );
-      }
-    } catch {
-      // The client-side shared cookie still applies the selection.
-    } finally {
-      await startLanguageTransition();
-      window.location.reload();
-    }
+    window.dispatchEvent(new CustomEvent(LANGUAGE_EVENT, { detail: next }));
   };
-
-  const renderMegaLink = (href, label, external = false) => (
+const renderMegaLink = (href, label, external = false) => (
     <a
       className="rowad-mega-link"
       href={href}
@@ -584,7 +352,7 @@ const RowadHeader = ({
               </a>
               {authenticatedUser ? (
                 <button className="rowad-header-button rowad-account-button" type="button" onClick={() => togglePanel('account')} aria-expanded={openPanel === 'account'}>
-                  <UserIcon /><span className="rowad-account-username" title={authenticatedUser.username}>{authenticatedUser.username}</span><ChevronIcon />
+                  <UserIcon /><span>{authenticatedUser.username}</span><ChevronIcon />
                 </button>
               ) : (
                 <a className="rowad-header-button rowad-login-button" href={config.LOGIN_URL || `${lmsUrl('/login')}?next=/courses`}>
@@ -597,7 +365,7 @@ const RowadHeader = ({
             <img src={language === 'ar' ? ARABIC_FLAG : ENGLISH_FLAG} alt="" />
           </button>
           {!minimal && (
-            <button className="rowad-header-button rowad-menu-button" type="button" onClick={() => { setOpenPanel(null); setMobileSection(null); setMobileOpen(value => !value); }} aria-label={mobileOpen ? text.closeMenu : text.openMenu} aria-expanded={mobileOpen}>
+            <button className="rowad-header-button rowad-menu-button" type="button" onClick={() => { setOpenPanel(null); setMobileOpen(value => !value); }} aria-label={mobileOpen ? text.closeMenu : text.openMenu} aria-expanded={mobileOpen}>
               <MenuIcon />
             </button>
           )}
@@ -696,106 +464,20 @@ const RowadHeader = ({
 
       {!minimal && mobileOpen && (
         <nav className="rowad-mobile-menu" aria-label={text.mobileNav}>
-          <div className="rowad-mobile-accordion">
-            <button
-              className="rowad-mobile-accordion-trigger"
-              type="button"
-              aria-expanded={mobileSection === 'explore'}
-              onClick={() => setMobileSection(
-                current => (current === 'explore' ? null : 'explore')
-              )}
-            >
-              <span>{text.explore}</span>
-              <ChevronIcon />
-            </button>
-
-            {mobileSection === 'explore' && (
-              <div className="rowad-mobile-accordion-panel">
-                <section className="rowad-mobile-submenu-section">
-                  <h3>{text.learn}</h3>
-                  <a href={siteUrl(routes.courses)}>{text.courses}</a>
-                  <a href={siteUrl(routes.podcasts)}>{text.podcasts}</a>
-                  <a href={siteUrl(routes.blogs)}>{text.blogs}</a>
-                </section>
-
-                <section className="rowad-mobile-submenu-section">
-                  <h3>{text.connect}</h3>
-                  <a href="https://mentors.com/" target="_blank" rel="noopener noreferrer">{text.mentorship}</a>
-                  <a href="https://consulting.com/" target="_blank" rel="noopener noreferrer">{text.consultation}</a>
-                  <a href={siteUrl(routes.partnerships)}>{text.partnerships}</a>
-                  <a href={siteUrl(routes.initiatives)}>{text.initiatives}</a>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">{text.linkedin}</a>
-                  <a href="https://bookclubs.com/" target="_blank" rel="noopener noreferrer">{text.bookClub}</a>
-                </section>
-
-                <section className="rowad-mobile-submenu-section">
-                  <h3>{text.find}</h3>
-                  <a href={siteUrl(routes.glossary)}>{text.glossary}</a>
-                  <a href={siteUrl(routes.tools)}>{text.tools}</a>
-                  <a href={siteUrl(routes.funding)}>{text.funding}</a>
-                  <a href={siteUrl(routes.experts)}>{text.experts}</a>
-                  <a href="https://www.ycombinator.com/" target="_blank" rel="noopener noreferrer">{text.accelerators}</a>
-                  <a href={siteUrl(routes.events)}>{text.events}</a>
-                </section>
-
-                <section className="rowad-mobile-submenu-section">
-                  <h3>{text.collaborate}</h3>
-                  <a href={siteUrl(routes.startPartnership)}>{text.startPartnership}</a>
-                  <a href={siteUrl(routes.mentor)}>{text.mentor}</a>
-                  <a href={siteUrl(routes.ambassador)}>{text.ambassador}</a>
-                  <a href={siteUrl(routes.special)}>{text.special}</a>
-                </section>
-
-                <a
-                  className="rowad-mobile-library-link"
-                  href={siteUrl(routes.library)}
-                >
-                  <strong>{text.library}</strong>
-                  <small>{text.libraryDesc}</small>
-                </a>
-              </div>
-            )}
-          </div>
-
-          <div className="rowad-mobile-accordion">
-            <button
-              className="rowad-mobile-accordion-trigger"
-              type="button"
-              aria-expanded={mobileSection === 'forWho'}
-              onClick={() => setMobileSection(
-                current => (current === 'forWho' ? null : 'forWho')
-              )}
-            >
-              <span>{text.forWho}</span>
-              <ChevronIcon />
-            </button>
-
-            {mobileSection === 'forWho' && (
-              <div className="rowad-mobile-accordion-panel">
-                <a href={siteUrl(routes.starting)}>{text.starting}</a>
-                <a href={siteUrl(routes.running)}>{text.running}</a>
-                <a href={siteUrl(routes.growing)}>{text.growing}</a>
-              </div>
-            )}
-          </div>
+          <a href={siteUrl(routes.courses)}>{text.explore}</a>
+          <a href={siteUrl(routes.starting)}>{text.forWho}</a>
           <a href={siteUrl(routes.journey)}>{text.journey}</a>
           <a href={siteUrl(routes.about)}>{text.about}</a>
           <div className="rowad-mobile-actions">
-            {authenticatedUser && (
+            <a className="rowad-courses-button" href={coursesUrl}>{text.coursesButton}</a>
+            {authenticatedUser ? (
               <>
+                <a className="rowad-login-button" href={dashboardUrl}>{authenticatedUser.username}</a>
                 {userMenu.flatMap(group => group.items).map(item => (
                   <a key={`${item.href}-${item.content}`} href={item.href} onClick={item.onClick || undefined}>{item.content}</a>
                 ))}
-                <a className="rowad-courses-button" href={coursesUrl}>{text.coursesButton}</a>
-                <a className="rowad-login-button" href={dashboardUrl}>{authenticatedUser.username}</a>
               </>
-            )}
-            {!authenticatedUser && (
-              <>
-                <a className="rowad-courses-button" href={coursesUrl}>{text.coursesButton}</a>
-                <a className="rowad-login-button" href={config.LOGIN_URL || `${lmsUrl('/login')}?next=/courses`}>{text.login}</a>
-              </>
-            )}
+            ) : <a className="rowad-login-button" href={config.LOGIN_URL || `${lmsUrl('/login')}?next=/courses`}>{text.login}</a>}
           </div>
         </nav>
       )}
