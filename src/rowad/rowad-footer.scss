@@ -484,3 +484,20 @@
     }
   }
 }
+
+/* ROWAD FOOTER FONT PROTECTION */
+#rowadThemeFooter,
+#rowadThemeFooter * {
+  font-family:
+    var(--font-noto-sans, "Rowad Noto Sans"),
+    Arial,
+    sans-serif !important;
+}
+
+#rowadThemeFooter[dir="rtl"],
+#rowadThemeFooter[dir="rtl"] * {
+  font-family:
+    var(--font-noto-kufi-arabic, "Rowad Noto Kufi Arabic"),
+    var(--font-noto-sans, "Rowad Noto Sans"),
+    sans-serif !important;
+}

@@ -1076,3 +1076,78 @@ html.rowad-language-entering body {
     max-width: calc(100vw - 32px) !important;
   }
 }
+
+/* ROWAD MOBILE FINAL ACTIONS */
+.rowad-account-username {
+  text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .rowad-mobile-actions > a {
+    order: 1;
+  }
+
+  .rowad-mobile-actions > .rowad-courses-button {
+    order: 2;
+  }
+
+  .rowad-mobile-actions > .rowad-login-button {
+    display: flex;
+    order: 3;
+    align-items: center;
+    justify-content: center;
+    text-align: center !important;
+  }
+}
+
+/* ROWAD HEADER FONT PROTECTION */
+#rowadThemeHeader,
+#rowadThemeHeader * {
+  font-family:
+    var(--font-noto-sans, "Rowad Noto Sans"),
+    Arial,
+    sans-serif !important;
+}
+
+#rowadThemeHeader[dir="rtl"],
+#rowadThemeHeader[dir="rtl"] * {
+  font-family:
+    var(--font-noto-kufi-arabic, "Rowad Noto Kufi Arabic"),
+    var(--font-noto-sans, "Rowad Noto Sans"),
+    sans-serif !important;
+}
+
+/* ROWAD MOBILE ACTION ORDER AND VISIBILITY */
+@media (max-width: 1100px) {
+  .rowad-mobile-actions {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rowad-mobile-actions > a:not(.rowad-courses-button):not(.rowad-login-button) {
+    order: 1;
+  }
+
+  .rowad-mobile-actions > .rowad-courses-button {
+    order: 90;
+    width: 100%;
+    color: #075f5f !important;
+    text-align: center !important;
+  }
+
+  .rowad-mobile-actions > .rowad-courses-button:hover,
+  .rowad-mobile-actions > .rowad-courses-button:focus,
+  .rowad-mobile-actions > .rowad-courses-button:visited {
+    color: #075f5f !important;
+  }
+
+  .rowad-mobile-actions > .rowad-login-button,
+  .rowad-mobile-actions > .rowad-account-username {
+    display: flex;
+    order: 100;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center !important;
+  }
+}
