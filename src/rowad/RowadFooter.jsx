@@ -114,17 +114,12 @@ const RowadFooter = ({ className, locale: localeProp }) => {
     setStatus('submitting');
 
     try {
-      const response = await getAuthenticatedHttpClient().post(
+      await getAuthenticatedHttpClient().post(
         `${lmsBaseUrl}/api/v1/newsletter/subscription/`,
         { email: normalizedEmail },
       );
 
-      if (response?.data?.success) {
-        setEmail('');
-        setStatus('success');
-      } else {
-        setStatus('error');
-      }
+      setStatus('success');
     } catch {
       setStatus('error');
     } finally {
@@ -162,15 +157,16 @@ const RowadFooter = ({ className, locale: localeProp }) => {
               aria-describedby="newsletterStatus"
               aria-invalid={status === 'invalid'}
               required
-              disabled={isSubmitting}
+              disabled={isSubmitting || status === 'success'}
             />
             <button
               id="subscribeButton"
               type="submit"
               disabled={
-                isSubmitting
-                || !EMAIL_RE.test(email.trim())
-              }
+                  isSubmitting
+                  || status === 'success'
+                  || !EMAIL_RE.test(email.trim())
+                }
             >
               {isSubmitting ? subscribingLabel : text.subscribe}
             </button>
