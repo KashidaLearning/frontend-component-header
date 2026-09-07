@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { getConfig } from '@edx/frontend-platform';
+import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import './rowad-footer.scss';
 
 const ROWAD_SITE = 'https://d1p65zue2xzvrm.cloudfront.net';
 const LANGUAGE_EVENT = 'rowad-language-change';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const normaliseLanguage = value => (
   String(value || '').toLowerCase().split('-')[0] === 'ar' ? 'ar' : 'en'
@@ -79,6 +82,9 @@ const RowadFooter = ({ className, locale: localeProp }) => {
   const text = FOOTER_TEXT[language];
   const columns = FOOTER_COLUMNS[language];
   const logo = LOGOS[language];
+  const subscribingLabel = language === 'en'
+    ? 'Subscribing...'
+    : 'جارٍ الاشتراك...';
 
   useEffect(() => {
     const syncLanguage = event => setLanguage(normaliseLanguage(event.detail));
@@ -86,19 +92,44 @@ const RowadFooter = ({ className, locale: localeProp }) => {
     return () => window.removeEventListener(LANGUAGE_EVENT, syncLanguage);
   }, []);
 
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault();
+  const handleNewsletterSubmit = async (event) => {
+    event.preventDefault();
 
-    if (!email) {
+    const normalizedEmail = email.trim();
+
+    if (!EMAIL_RE.test(normalizedEmail)) {
+      setStatus('invalid');
+      return;
+    }
+
+    const lmsBaseUrl = String(getConfig().LMS_BASE_URL || '')
+      .replace(/\/$/, '');
+
+    if (!lmsBaseUrl) {
       setStatus('error');
       return;
     }
 
     setIsSubmitting(true);
-    setStatus('success');
-    setEmail('');
-    setTimeout(() => setStatus(''), 3000);
-    setIsSubmitting(false);
+    setStatus('submitting');
+
+    try {
+      const response = await getAuthenticatedHttpClient().post(
+        `${lmsBaseUrl}/api/v1/newsletter/subscription/`,
+        { email: normalizedEmail },
+      );
+
+      if (response?.data?.success) {
+        setEmail('');
+        setStatus('success');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -123,21 +154,44 @@ const RowadFooter = ({ className, locale: localeProp }) => {
               type="email"
               placeholder={text.emailPlaceholder}
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                setStatus('');
+              }}
               autoComplete="email"
+              aria-describedby="newsletterStatus"
+              aria-invalid={status === 'invalid'}
               required
               disabled={isSubmitting}
             />
             <button
               id="subscribeButton"
               type="submit"
-              disabled={isSubmitting || !email}
+              disabled={
+                isSubmitting
+                || !EMAIL_RE.test(email.trim())
+              }
             >
-              {text.subscribe}
+              {isSubmitting ? subscribingLabel : text.subscribe}
             </button>
-            <p className="newsletter-status" id="newsletterStatus" role="status" aria-live="polite">
-              {status === 'success' && (language === 'en' ? 'Thank you for subscribing!' : 'شكراً للاشتراك!')}
-              {status === 'error' && (language === 'en' ? 'Please enter a valid email.' : 'يرجى إدخال بريد إلكتروني صحيح.')}
+            <p
+              className={
+                status === 'invalid' || status === 'error'
+                  ? 'newsletter-status is-error'
+                  : 'newsletter-status'
+              }
+              id="newsletterStatus"
+              role="status"
+              aria-live="polite"
+            >
+              {status === 'submitting'
+                && (language === 'en' ? 'Subscribing...' : 'جارٍ الاشتراك...')}
+              {status === 'success'
+                && (language === 'en' ? 'Thank you for subscribing!' : 'شكراً للاشتراك!')}
+              {status === 'invalid'
+                && (language === 'en' ? 'Please enter a valid email.' : 'يرجى إدخال بريد إلكتروني صحيح.')}
+              {status === 'error'
+                && (language === 'en' ? 'Subscription failed. Please try again.' : 'تعذر الاشتراك. يرجى المحاولة مرة أخرى.')}
             </p>
           </form>
         </section>
