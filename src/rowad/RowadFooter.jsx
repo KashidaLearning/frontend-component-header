@@ -203,16 +203,16 @@ const RowadFooter = ({ className, locale: localeProp }) => {
             />
           </div>
           <div className="social-links" aria-label={text.socialLabel}>
-            <a href="https://www.instagram.com/rowad_sedco?igsh=MW1vdWxuNGsxY3VpMw==" target="_blank" rel="noopener noreferrer" aria-label={text.instagramLabel}>
+            <a className="rowad-footer-disabled-link" aria-disabled="true" tabIndex={-1} onClick={(event) => event.preventDefault()} href="https://www.instagram.com/rowad_sedco?igsh=MW1vdWxuNGsxY3VpMw==" target="_blank" rel="noopener noreferrer" aria-label={text.instagramLabel}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg>
             </a>
-            <a href="https://www.linkedin.com/company/rowad-%D8%B1%D9%88%D8%A7%D8%AF/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label={text.linkedinLabel}>
+            <a className="rowad-footer-disabled-link" aria-disabled="true" tabIndex={-1} onClick={(event) => event.preventDefault()} href="https://www.linkedin.com/company/rowad-%D8%B1%D9%88%D8%A7%D8%AF/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label={text.linkedinLabel}>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.3 7.9H1.7V22h3.6V7.9ZM3.5 2A2.1 2.1 0 1 0 3.5 6.2 2.1 2.1 0 0 0 3.5 2ZM22 14.1c0-4.3-2.3-6.5-5.4-6.5a4.7 4.7 0 0 0-4.3 2.4V7.9H8.7V22h3.6v-7c0-1.9.4-3.7 2.7-3.7s2.4 2.1 2.4 3.8V22H22v-7.9Z" /></svg>
             </a>
-            <a href="https://x.com/rowad_sedco?s=11&t=Jq7gJ6JUK0A0ca7nbuZROg" target="_blank" rel="noopener noreferrer" aria-label={text.xLabel}>
+            <a className="rowad-footer-disabled-link" aria-disabled="true" tabIndex={-1} onClick={(event) => event.preventDefault()} href="https://x.com/rowad_sedco?s=11&t=Jq7gJ6JUK0A0ca7nbuZROg" target="_blank" rel="noopener noreferrer" aria-label={text.xLabel}>
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23.2 22H17l-4.9-6.4L6.5 22H3.4l7.2-8.2L2.9 2h6.4l4.4 5.8L18.9 2Zm-1.1 17.9h1.7L8.3 4H6.5l11.3 15.9Z" /></svg>
             </a>
-            <a href="https://www.youtube.com/@rowadSEDCO" target="_blank" rel="noopener noreferrer" aria-label={text.youtubeLabel}>
+            <a className="rowad-footer-disabled-link" aria-disabled="true" tabIndex={-1} onClick={(event) => event.preventDefault()} href="https://www.youtube.com/@rowadSEDCO" target="_blank" rel="noopener noreferrer" aria-label={text.youtubeLabel}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 12s0-4-1-6c-.5-1-1.4-1.4-2.4-1.6C16.8 4 12 4 12 4s-4.8 0-6.6.4C4.4 4.6 3.5 5 3 6c-1 2-1 6-1 6s0 4 1 6c.5 1 1.4 1.4 2.4 1.6C7.2 20 12 20 12 20s4.8 0 6.6-.4c1-.2 1.9-.6 2.4-1.6 1-2 1-6 1-6Z" /><path d="m10 9 5 3-5 3V9Z" /></svg>
             </a>
           </div>
@@ -229,7 +229,7 @@ const RowadFooter = ({ className, locale: localeProp }) => {
               <ul>
                 {links.map(([linkText, linkPath]) => (
                   <li key={`${linkText}-${linkPath}`}>
-                    <a href={linkPath === '#' ? '#' : `${ROWAD_SITE}${linkPath}`}>
+                    <a className="rowad-footer-disabled-link" aria-disabled="true" tabIndex={-1} onClick={(event) => event.preventDefault()} href={linkPath === '#' ? '#' : `${ROWAD_SITE}${linkPath}`}>
                       {linkText}
                     </a>
                   </li>
