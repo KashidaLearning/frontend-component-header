@@ -507,3 +507,9 @@
   pointer-events: none !important;
   cursor: default !important;
 }
+
+/* ROWAD DISABLE ALL TEMPORARY FOOTER LINKS */
+#rowadThemeFooter a {
+  pointer-events: none !important;
+  cursor: default !important;
+}
