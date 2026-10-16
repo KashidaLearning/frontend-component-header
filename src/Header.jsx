@@ -53,7 +53,7 @@ const Header = ({
   const { authenticatedUser, config } = useContext(AppContext);
   const intl = useIntl();
 
-  const rowadWebsiteUrl = 'https://d1p65zue2xzvrm.cloudfront.net';
+  const rowadWebsiteUrl = 'https://rowadjourney.com';
 
   const submenuLink = (href, label) => (
     <a

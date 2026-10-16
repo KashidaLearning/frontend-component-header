@@ -5,7 +5,7 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import './rowad-footer.scss';
 
-const ROWAD_SITE = 'https://d1p65zue2xzvrm.cloudfront.net';
+const ROWAD_SITE = 'https://rowadjourney.com';
 const LANGUAGE_EVENT = 'rowad-language-change';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -46,22 +46,23 @@ const FOOTER_TEXT = {
 
 const FOOTER_COLUMNS = {
   en: [
-    ['Quick Links', [['Home', '/'], ['About', '/about'], ['Journey Guide', '/journey-guide'], ['Courses', '/courses'], ['Content', '/content']]],
-    ['Connect', [['Mentorship program', '/mentorship'], ['Consultation Support', '/consultation'], ['Partnerships', '/partnerships'], ['Initiatives', '/initiatives'], ['LinkedIn Group', '#'], ['Book Club', '/book-club']]],
-    ['Find', [['Glossary', '/glossary'], ['Tools Directory', '/tools'], ['Funding Directory', '/funding'], ['Experts Directory', '/experts'], ['Accelerators/incubator lists', '/accelerators'], ['Events calendar', '/events']]],
-    ['Collaborate', [['Start partnership', '/start-partnership'], ['Become a mentor', '/become-mentor'], ['Become an Ambassador', '/ambassador'], ['Special requests', '/requests']]],
-    ['For Who', [['Starting a Business', '/starting'], ['Running a Business', '/running'], ['Growing a Business', '/growing']]],
-    ['Other', [['Terms of Use', '/terms'], ['Privacy Policy', '/privacy']]],
+    ['Quick links', [['Home', '/en'], ['About', '/en/about'], ['Journey Guide', '/en/journey-guide'], ['Courses', '/en/courses'], ['Content', '/en/content']]],
+    ['Connect', [['Partnerships', '/en/partnerships'], ['Initiatives', '/en/initiatives']]],
+    ['Find', [['Glossary', '/en/glossary'], ['Tools Directory', '/en/tools-directory'], ['Funding Directory', '/en/funding-directory'], ['Experts Directory', '/en/experts-directory'], ['Events calendar', '/en/events']]],
+    ['Collaborate', [['Start partnership', '/en/contact?type=partnership'], ['Become a mentor', '/en/contact?type=mentor'], ['Become an Ambassador', '/en/contact?type=ambassador'], ['Special requests', '/en/contact?type=special_request']]],
+    ['For Who', [['Starting a Business', '/en/starting'], ['Running a Business', '/en/running'], ['Growing a Business', '/en/growing']]],
+    ['Other', [['Terms of Use', '/en/terms'], ['Privacy Policy', '/en/privacy']]],
   ],
   ar: [
-    ['روابط سريعة', [['الرئيسية', '/ar'], ['حول', '/ar/حول'], ['دليل الرحلة', '/ar/دليل-الرحلة'], ['الدورات', '/ar/دورات'], ['المحتوى', '/ar/محتوى']]],
-    ['تواصل', [['برنامج التوجيه', '/ar/إرشاد'], ['دعم الاستشارات', '/ar/استشارة'], ['الشراكات', '/ar/شراكات'], ['المبادرات', '/ar/مبادرات'], ['مجموعة لينكد إن', '#'], ['نادي الكتاب', '/ar/نادي-الكتاب']]],
-    ['ابحث', [['المصطلحات', '/ar/مصطلحات'], ['دليل الأدوات', '/ar/أدوات'], ['دليل التمويل', '/ar/تمويل'], ['دليل الخبراء', '/ar/خبراء'], ['قوائم المسرعات والحاضنات', '/ar/مسرعات'], ['تقويم الفعاليات', '/ar/فعاليات']]],
-    ['تعاون', [['ابدأ شراكة', '/ar/ابدأ-شراكة'], ['كن موجهًا', '/ar/أصبح-مرشدا'], ['كن سفيرًا', '/ar/سفير'], ['طلبات خاصة', '/ar/طلبات']]],
-    ['لمن', [['بدء مشروع تجاري', '/ar/بدء'], ['إدارة مشروع تجاري', '/ar/إدارة'], ['تنمية مشروع تجاري', '/ar/تنمية']]],
-    ['أخرى', [['شروط الاستخدام', '/ar/شروط'], ['سياسة الخصوصية', '/ar/خصوصية']]],
+    ['روابط سريعة', [['الرئيسية', '/'], ['عن روّاد', '/حول'], ['دليل الرحلة', '/دليل-الرحلة'], ['الدورات', '/دورات'], ['المحتوى', '/محتوى']]],
+    ['تواصل', [['الشراكات', '/شراكات'], ['المبادرات', '/مبادرات']]],
+    ['اكتشف', [['المصطلحات', '/مصطلحات'], ['دليل الأدوات', '/دليل-الأدوات'], ['دليل التمويل', '/دليل-التمويل'], ['دليل الخبراء', '/دليل-الخبراء'], ['تقويم الفعاليات', '/فعاليات']]],
+    ['تعاون', [['ابدأ شراكة', '/اتصل?type=partnership'], ['كن مرشدًا', '/اتصل?type=mentor'], ['كن سفيرًا', '/اتصل?type=ambassador'], ['طلبات خاصة', '/اتصل?type=special_request']]],
+    ['لمن روّاد', [['بدء عمل تجاري', '/بدء'], ['إدارة عمل تجاري', '/إدارة'], ['تنمية عمل تجاري', '/تنمية']]],
+    ['أخرى', [['شروط الاستخدام', '/شروط'], ['سياسة الخصوصية', '/خصوصية']]],
   ],
 };
+
 
 const LOGOS = {
   en: `${ROWAD_SITE}/logo-en-light.svg`,

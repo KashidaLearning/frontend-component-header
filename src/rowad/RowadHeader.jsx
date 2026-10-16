@@ -6,7 +6,7 @@ import { AppContext } from '@edx/frontend-platform/react';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 
-const ROWAD_SITE = 'https://d1p65zue2xzvrm.cloudfront.net';
+const ROWAD_SITE = 'https://rowadjourney.com';
 const ENGLISH_FLAG = `${ROWAD_SITE}/_astro/english-usa.DqJ3CMLO.webp`;
 const ARABIC_FLAG = `${ROWAD_SITE}/_astro/arabic-ksa.Cr2p1ofg.webp`;
 
@@ -272,10 +272,10 @@ const TEXT = {
 
 const ROUTES = {
   en: {
-    home: '/', journey: '/journey-guide', about: '/about', courses: '/courses', podcasts: '/podcasts', blogs: '/blogs', partnerships: '/partnerships', initiatives: '/initiatives', glossary: '/glossary', tools: '/tools-directory', funding: '/funding-directory', experts: '/experts-directory', events: '/events', startPartnership: '/start-partnership', mentor: '/become-a-mentor', ambassador: '/become-an-ambassador', special: '/special-requests', library: '/library', starting: '/for-who/starting', running: '/for-who/running', growing: '/for-who/growing', search: '/search',
+    home: '/en', journey: '/en/journey-guide', about: '/en/about', courses: '/en/courses', podcasts: '/en/podcasts', blogs: '/en/blogs', partnerships: '/en/partnerships', initiatives: '/en/initiatives', glossary: '/en/glossary', tools: '/en/tools-directory', funding: '/en/funding-directory', experts: '/en/experts-directory', events: '/en/events', startPartnership: '/en/contact?type=partnership', mentor: '/en/contact?type=mentor', ambassador: '/en/contact?type=ambassador', special: '/en/contact?type=special_request', library: '/en/library', starting: '/en/for-who/starting', running: '/en/for-who/running', growing: '/en/for-who/growing', search: '/en/search',
   },
   ar: {
-    home: '/ar', journey: '/ar/دليل-الرحلة', about: '/ar/حول', courses: '/ar/دورات', podcasts: '/ar/بودكاست', blogs: '/ar/مدونات', partnerships: '/ar/شراكات', initiatives: '/ar/مبادرات', glossary: '/ar/مصطلحات', tools: '/ar/دليل-الأدوات', funding: '/ar/دليل-التمويل', experts: '/ar/دليل-الخبراء', events: '/ar/فعاليات', startPartnership: '/ar/ابدأ-شراكة', mentor: '/ar/كن-مرشدا', ambassador: '/ar/كن-سفيرا', special: '/ar/طلبات-خاصة', library: '/ar/library', starting: '/ar/لمن/بدء', running: '/ar/لمن/إدارة', growing: '/ar/لمن/تنمية', search: '/ar/search',
+    home: '/', journey: '/دليل-الرحلة', about: '/حول', courses: '/دورات', podcasts: '/بودكاست', blogs: '/مدونات', partnerships: '/شراكات', initiatives: '/مبادرات', glossary: '/مصطلحات', tools: '/دليل-الأدوات', funding: '/دليل-التمويل', experts: '/دليل-الخبراء', events: '/فعاليات', startPartnership: '/اتصل?type=partnership', mentor: '/اتصل?type=mentor', ambassador: '/اتصل?type=ambassador', special: '/اتصل?type=special_request', library: '/library', starting: '/لمن/بدء', running: '/لمن/إدارة', growing: '/لمن/تنمية', search: '/search',
   },
 };
 

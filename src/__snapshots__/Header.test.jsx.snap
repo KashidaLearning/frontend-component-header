@@ -24,11 +24,11 @@ exports[`<Header /> renders correctly for anonymous desktop 1`] = `
         <a
           aria-label="Rowad — Home"
           className="rowad-brand-link"
-          href="https://d1p65zue2xzvrm.cloudfront.net/"
+          href="https://rowadjourney.com/"
         >
           <img
             alt=""
-            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+            src="https://rowadjourney.com/logo-en-light.svg"
           />
         </a>
         <nav
@@ -91,7 +91,7 @@ exports[`<Header /> renders correctly for anonymous desktop 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+                href="https://rowadjourney.com/journey-guide"
               >
                 Journey Guide
               </a>
@@ -99,7 +99,7 @@ exports[`<Header /> renders correctly for anonymous desktop 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+                href="https://rowadjourney.com/about"
               >
                 About
               </a>
@@ -202,7 +202,7 @@ exports[`<Header /> renders correctly for anonymous desktop 1`] = `
       >
         <img
           alt=""
-          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+          src="https://rowadjourney.com/_astro/english-usa.DqJ3CMLO.webp"
         />
       </button>
       <button
@@ -254,11 +254,11 @@ exports[`<Header /> renders correctly for anonymous mobile 1`] = `
         <a
           aria-label="Rowad — Home"
           className="rowad-brand-link"
-          href="https://d1p65zue2xzvrm.cloudfront.net/"
+          href="https://rowadjourney.com/"
         >
           <img
             alt=""
-            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+            src="https://rowadjourney.com/logo-en-light.svg"
           />
         </a>
         <nav
@@ -321,7 +321,7 @@ exports[`<Header /> renders correctly for anonymous mobile 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+                href="https://rowadjourney.com/journey-guide"
               >
                 Journey Guide
               </a>
@@ -329,7 +329,7 @@ exports[`<Header /> renders correctly for anonymous mobile 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+                href="https://rowadjourney.com/about"
               >
                 About
               </a>
@@ -432,7 +432,7 @@ exports[`<Header /> renders correctly for anonymous mobile 1`] = `
       >
         <img
           alt=""
-          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+          src="https://rowadjourney.com/_astro/english-usa.DqJ3CMLO.webp"
         />
       </button>
       <button
@@ -484,11 +484,11 @@ exports[`<Header /> renders correctly for authenticated desktop 1`] = `
         <a
           aria-label="Rowad — Home"
           className="rowad-brand-link"
-          href="https://d1p65zue2xzvrm.cloudfront.net/"
+          href="https://rowadjourney.com/"
         >
           <img
             alt=""
-            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+            src="https://rowadjourney.com/logo-en-light.svg"
           />
         </a>
         <nav
@@ -551,7 +551,7 @@ exports[`<Header /> renders correctly for authenticated desktop 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+                href="https://rowadjourney.com/journey-guide"
               >
                 Journey Guide
               </a>
@@ -559,7 +559,7 @@ exports[`<Header /> renders correctly for authenticated desktop 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+                href="https://rowadjourney.com/about"
               >
                 About
               </a>
@@ -676,7 +676,7 @@ exports[`<Header /> renders correctly for authenticated desktop 1`] = `
       >
         <img
           alt=""
-          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+          src="https://rowadjourney.com/_astro/english-usa.DqJ3CMLO.webp"
         />
       </button>
       <button
@@ -728,11 +728,11 @@ exports[`<Header /> renders correctly for authenticated mobile 1`] = `
         <a
           aria-label="Rowad — Home"
           className="rowad-brand-link"
-          href="https://d1p65zue2xzvrm.cloudfront.net/"
+          href="https://rowadjourney.com/"
         >
           <img
             alt=""
-            src="https://d1p65zue2xzvrm.cloudfront.net/logo-en-light.svg"
+            src="https://rowadjourney.com/logo-en-light.svg"
           />
         </a>
         <nav
@@ -795,7 +795,7 @@ exports[`<Header /> renders correctly for authenticated mobile 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/journey-guide"
+                href="https://rowadjourney.com/journey-guide"
               >
                 Journey Guide
               </a>
@@ -803,7 +803,7 @@ exports[`<Header /> renders correctly for authenticated mobile 1`] = `
             <li>
               <a
                 className="rowad-nav-link"
-                href="https://d1p65zue2xzvrm.cloudfront.net/about"
+                href="https://rowadjourney.com/about"
               >
                 About
               </a>
@@ -920,7 +920,7 @@ exports[`<Header /> renders correctly for authenticated mobile 1`] = `
       >
         <img
           alt=""
-          src="https://d1p65zue2xzvrm.cloudfront.net/_astro/english-usa.DqJ3CMLO.webp"
+          src="https://rowadjourney.com/_astro/english-usa.DqJ3CMLO.webp"
         />
       </button>
       <button
