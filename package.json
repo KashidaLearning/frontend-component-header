@@ -1,6 +1,6 @@
 {
   "name": "@edx/frontend-component-header",
-  "version": "1.0.1-rowad.2",
+  "version": "1.0.1-rowad.3",
   "description": "The standard header for Open edX",
   "main": "dist/index.js",
   "publishConfig": {

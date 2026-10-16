@@ -279,6 +279,14 @@ const ROUTES = {
   },
 };
 
+// Sign out returns to the Rowad website (LMS must list rowadjourney.com in
+// LOGIN_REDIRECT_WHITELIST, otherwise it ignores redirect_url).
+const rowadLogoutUrl = (logoutUrl, language) => {
+  const target = `${ROWAD_SITE}${ROUTES[language].home}`;
+  const separator = String(logoutUrl).includes('?') ? '&' : '?';
+  return `${logoutUrl}${separator}redirect_url=${encodeURIComponent(target)}`;
+};
+
 const ChevronIcon = () => (
   <svg className="rowad-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
     <path d="m6 9 6 6 6-6" />
@@ -352,7 +360,15 @@ const RowadHeader = ({
       ...(config.LOGOUT_URL ? [{ content: language === 'ar' ? 'تسجيل الخروج' : 'Sign Out', href: config.LOGOUT_URL }] : []),
     ],
   }] : [];
-  const userMenu = userMenuProp || defaultUserMenu;
+  // Every Sign Out link (ours or one passed in by Header.jsx) returns to the website.
+  const userMenu = (userMenuProp || defaultUserMenu).map(group => ({
+    ...group,
+    items: (group.items || []).map(item => (
+      config.LOGOUT_URL && item.href === config.LOGOUT_URL
+        ? { ...item, href: rowadLogoutUrl(config.LOGOUT_URL, language) }
+        : item
+    )),
+  }));
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const text = TEXT[language];
   const routes = ROUTES[language];
@@ -364,7 +380,7 @@ const RowadHeader = ({
   const [audience, setAudience] = useState(0);
   const siteUrl = path => `${ROWAD_SITE}${path}`;
   const lmsUrl = path => `${String(config?.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
-  const coursesUrl = lmsUrl('/courses');
+  const coursesUrl = siteUrl(routes.courses);
   const dashboardUrl = lmsUrl('/dashboard');
 
   const closeAll = () => {
