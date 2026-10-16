@@ -168,8 +168,7 @@ const TEXT = {
     explore: 'Explore',
     forWho: 'For Who',
     journey: 'Journey Guide',
-    about: 'About Us',
-    contact: 'Contact Us',
+    about: 'About',
     coursesButton: 'Rowad Courses',
     login: 'Log In',
     languages: 'Languages',
@@ -221,8 +220,7 @@ const TEXT = {
     explore: 'استكشف',
     forWho: 'لمن',
     journey: 'دليل الرحلة',
-    about: 'معلومات عنا',
-    contact: 'تواصل معنا',
+    about: 'حول',
     coursesButton: 'دورات رواد',
     login: 'تسجيل الدخول',
     languages: 'اللغات',
@@ -368,8 +366,6 @@ const RowadHeader = ({
   const lmsUrl = path => `${String(config?.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
   const coursesUrl = lmsUrl('/courses');
   const dashboardUrl = lmsUrl('/dashboard');
-  const aboutUrl = lmsUrl('/about');
-  const contactUrl = lmsUrl('/contact');
 
   const closeAll = () => {
     setOpenPanel(null);
@@ -556,7 +552,6 @@ const RowadHeader = ({
               <nav className="rowad-site-nav" aria-label={text.primaryNav}>
                 <ul className="rowad-nav-list">
                   <li
-                    className="rowad-temporarily-hidden-nav"
                     onMouseEnter={() => openMegaMenu('explore')}
                     onMouseLeave={scheduleMegaMenuClose}
                   >
@@ -565,7 +560,6 @@ const RowadHeader = ({
                     </button>
                   </li>
                   <li
-                    className="rowad-temporarily-hidden-nav"
                     onMouseEnter={() => openMegaMenu('forWho')}
                     onMouseLeave={scheduleMegaMenuClose}
                   >
@@ -573,11 +567,8 @@ const RowadHeader = ({
                       {text.forWho}<ChevronIcon />
                     </button>
                   </li>
-                  <li className="rowad-temporarily-hidden-nav"><a className="rowad-nav-link" href={siteUrl(routes.journey)}>{text.journey}</a></li>
-                  <li className="rowad-temporarily-hidden-nav"><a className="rowad-nav-link" href={siteUrl(routes.about)}>{text.about}</a></li>
-                  {/* ROWAD TEMPORARY PUBLIC NAVIGATION */}
-                  <li><a className="rowad-nav-link" href={aboutUrl}>{text.about}</a></li>
-                  <li><a className="rowad-nav-link" href={contactUrl}>{text.contact}</a></li>
+                  <li><a className="rowad-nav-link" href={siteUrl(routes.journey)}>{text.journey}</a></li>
+                  <li><a className="rowad-nav-link" href={siteUrl(routes.about)}>{text.about}</a></li>
                 </ul>
               </nav>
             )}
@@ -705,13 +696,13 @@ const RowadHeader = ({
 
       {!minimal && mobileOpen && (
         <nav className="rowad-mobile-menu" aria-label={text.mobileNav}>
-          <div className="rowad-mobile-accordion rowad-temporarily-hidden-nav">
+          <div className="rowad-mobile-accordion">
             <button
               className="rowad-mobile-accordion-trigger"
               type="button"
               aria-expanded={mobileSection === 'explore'}
               onClick={() => setMobileSection(
-                current => (current === 'explore' ? null : 'explore'),
+                current => (current === 'explore' ? null : 'explore')
               )}
             >
               <span>{text.explore}</span>
@@ -766,13 +757,13 @@ const RowadHeader = ({
             )}
           </div>
 
-          <div className="rowad-mobile-accordion rowad-temporarily-hidden-nav">
+          <div className="rowad-mobile-accordion">
             <button
               className="rowad-mobile-accordion-trigger"
               type="button"
               aria-expanded={mobileSection === 'forWho'}
               onClick={() => setMobileSection(
-                current => (current === 'forWho' ? null : 'forWho'),
+                current => (current === 'forWho' ? null : 'forWho')
               )}
             >
               <span>{text.forWho}</span>
@@ -787,9 +778,8 @@ const RowadHeader = ({
               </div>
             )}
           </div>
-          {/* ROWAD TEMPORARY MOBILE NAVIGATION */}
-          <a href={aboutUrl}>{text.about}</a>
-          <a href={contactUrl}>{text.contact}</a>
+          <a href={siteUrl(routes.journey)}>{text.journey}</a>
+          <a href={siteUrl(routes.about)}>{text.about}</a>
           <div className="rowad-mobile-actions">
             {authenticatedUser && (
               <>
