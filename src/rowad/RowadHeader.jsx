@@ -545,7 +545,7 @@ const RowadHeader = ({
       <header className="rowad-main-header">
         <div className="rowad-header-main">
           <div className="rowad-header-main-inner">
-            <a className="rowad-brand-link" href={lmsUrl('/')} aria-label={text.homeLabel}>
+            <a className="rowad-brand-link" href={siteUrl(routes.home)} aria-label={text.homeLabel}>
               <img src={`${ROWAD_SITE}/${language === 'ar' ? 'logo-ar-light.svg' : 'logo-en-light.svg'}`} alt="" />
             </a>
             {!minimal && (
