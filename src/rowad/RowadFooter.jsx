@@ -15,11 +15,12 @@ const normaliseLanguage = value => (
 
 const FOOTER_TEXT = {
   en: {
-    join: 'Join Rowad',
-    subscribe: 'Subscribe',
-    newsletter: 'to newsletter.',
+    join: 'Stay Connected',
+    subscribe: 'Never Miss a',
+    newsletter: 'Conversation.',
+    subscribeButton: 'Subscribe Now',
     emailLabel: 'Email address',
-    emailPlaceholder: 'Enter your email address',
+    emailPlaceholder: 'Email address',
     rowadLogoAlt: 'Rowad Logo',
     sedcoLogoAlt: 'Sedco Holdings Logo',
     socialLabel: 'Social media',
@@ -29,11 +30,12 @@ const FOOTER_TEXT = {
     youtubeLabel: "Rowad's YouTube Channel",
   },
   ar: {
-    join: 'انضم إلى رواد',
-    subscribe: 'اشترك',
-    newsletter: 'بنشرتنا الإخبارية.',
+    join: 'ابقَ على تواصل',
+    subscribe: 'لا تفوّت',
+    newsletter: 'جديد روّاد.',
+    subscribeButton: 'اشترك الآن',
     emailLabel: 'عنوان البريد الإلكتروني',
-    emailPlaceholder: 'أدخل عنوان بريدك الإلكتروني',
+    emailPlaceholder: 'البريد الإلكتروني',
     rowadLogoAlt: 'شعار رواد',
     sedcoLogoAlt: 'شعار سدكو القابضة',
     socialLabel: 'وسائل التواصل الاجتماعي',
@@ -169,7 +171,7 @@ const RowadFooter = ({ className, locale: localeProp }) => {
                   || !EMAIL_RE.test(email.trim())
                 }
             >
-              {isSubmitting ? subscribingLabel : text.subscribe}
+              {isSubmitting ? subscribingLabel : text.subscribeButton}
             </button>
             <p
               className={
