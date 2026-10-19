@@ -171,6 +171,7 @@ const TEXT = {
     about: 'About',
     coursesButton: 'Rowad Courses',
     login: 'Log In',
+    mySpace: 'My Space',
     languages: 'Languages',
     englishExtended: 'English (United States)',
     arabicExtended: 'Arabic (Saudi Arabia)',
@@ -223,6 +224,7 @@ const TEXT = {
     about: 'حول',
     coursesButton: 'دورات رواد',
     login: 'تسجيل الدخول',
+    mySpace: 'مساحتي',
     languages: 'اللغات',
     englishExtended: 'الإنجليزية (الولايات المتحدة)',
     arabicExtended: 'العربية (المملكة العربية السعودية)',
@@ -278,6 +280,9 @@ const ROUTES = {
     home: '/', journey: '/دليل-الرحلة', about: '/حول', courses: '/دورات', podcasts: '/بودكاست', blogs: '/مدونات', partnerships: '/شراكات', initiatives: '/مبادرات', glossary: '/مصطلحات', tools: '/دليل-الأدوات', funding: '/دليل-التمويل', experts: '/دليل-الخبراء', events: '/فعاليات', startPartnership: '/اتصل?type=partnership', mentor: '/اتصل?type=mentor', ambassador: '/اتصل?type=ambassador', special: '/اتصل?type=special_request', library: '/library', starting: '/لمن/بدء', running: '/لمن/إدارة', growing: '/لمن/تنمية', search: '/search',
   },
 };
+
+// "My Space" on the Rowad website replaces the LMS dashboard for signed-in users.
+const MY_SPACE_PATH = { en: '/en/dashboard', ar: '/مساحتي' };
 
 // Sign out returns to the Rowad website (LMS must list rowadjourney.com in
 // LOGIN_REDIRECT_WHITELIST, otherwise it ignores redirect_url).
@@ -360,14 +365,21 @@ const RowadHeader = ({
       ...(config.LOGOUT_URL ? [{ content: language === 'ar' ? 'تسجيل الخروج' : 'Sign Out', href: config.LOGOUT_URL }] : []),
     ],
   }] : [];
-  // Every Sign Out link (ours or one passed in by Header.jsx) returns to the website.
+  const mySpaceUrl = `${ROWAD_SITE}${MY_SPACE_PATH[language]}`;
+  const lmsDashboardUrl = `${String(config.LMS_BASE_URL || '').replace(/\/$/, '')}/dashboard`;
+  // Every Sign Out link (ours or one passed in by Header.jsx) returns to the
+  // website, and the LMS Dashboard item becomes "My Space" on the website.
   const userMenu = (userMenuProp || defaultUserMenu).map(group => ({
     ...group,
-    items: (group.items || []).map(item => (
-      config.LOGOUT_URL && item.href === config.LOGOUT_URL
-        ? { ...item, href: rowadLogoutUrl(config.LOGOUT_URL, language) }
-        : item
-    )),
+    items: (group.items || []).map((item) => {
+      if (config.LOGOUT_URL && item.href === config.LOGOUT_URL) {
+        return { ...item, href: rowadLogoutUrl(config.LOGOUT_URL, language) };
+      }
+      if (String(item.href || '').replace(/\/$/, '') === lmsDashboardUrl) {
+        return { ...item, href: mySpaceUrl, content: TEXT[language].mySpace };
+      }
+      return item;
+    }),
   }));
   const direction = language === 'ar' ? 'rtl' : 'ltr';
   const text = TEXT[language];
@@ -381,7 +393,6 @@ const RowadHeader = ({
   const siteUrl = path => `${ROWAD_SITE}${path}`;
   const lmsUrl = path => `${String(config?.LMS_BASE_URL || '').replace(/\/$/, '')}${path}`;
   const coursesUrl = siteUrl(routes.courses);
-  const dashboardUrl = lmsUrl('/dashboard');
 
   const closeAll = () => {
     setOpenPanel(null);
@@ -600,7 +611,7 @@ const RowadHeader = ({
               </a>
               {authenticatedUser ? (
                 <button className="rowad-header-button rowad-account-button" type="button" onClick={() => togglePanel('account')} aria-expanded={openPanel === 'account'}>
-                  <UserIcon /><span className="rowad-account-username" title={authenticatedUser.username}>{authenticatedUser.username}</span><ChevronIcon />
+                  <UserIcon /><span className="rowad-account-username" title={authenticatedUser.username}>{text.mySpace}</span><ChevronIcon />
                 </button>
               ) : (
                 <a className="rowad-header-button rowad-login-button" href={config.LOGIN_URL || `${lmsUrl('/login')}?next=/courses`}>
@@ -803,7 +814,7 @@ const RowadHeader = ({
                   <a key={`${item.href}-${item.content}`} href={item.href} onClick={item.onClick || undefined}>{item.content}</a>
                 ))}
                 <a className="rowad-courses-button" href={coursesUrl}>{text.coursesButton}</a>
-                <a className="rowad-login-button" href={dashboardUrl}>{authenticatedUser.username}</a>
+                <a className="rowad-login-button" href={mySpaceUrl}>{text.mySpace}</a>
               </>
             )}
             {!authenticatedUser && (
